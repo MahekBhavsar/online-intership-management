@@ -1,13 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Course } from './course/course';
+import { Dashboard } from './users/dashboard/dashboard';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,Course],
+  imports: [RouterOutlet, Dashboard],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('online-intership-management');
+
 }
