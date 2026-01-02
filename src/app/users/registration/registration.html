@@ -1,90 +1,139 @@
-<div class="container-fluid vh-100 d-flex align-items-center justify-content-center register-bg">
-    <div class="col-lg-6 col-md-8 col-sm-11">
-        <div class="card shadow-lg border-0 rounded-4">
-            <div class="card-body p-4 p-md-5">
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center register-bg">
+    <div class="col-xl-6 col-lg-7 col-md-9 col-sm-11">
+        <div class="card shadow border-0 rounded-4">
+            <div class="card-body p-3 p-md-4">
 
-                <h3 class="text-center fw-bold mb-2">Student Registration</h3>
-                <p class="text-center text-muted mb-4">
-                    Create your account to apply for internships
+                <h4 class="text-center fw-bold mb-1">Internship Registration</h4>
+                <p class="text-center text-muted mb-3 small">
+                    Apply for internship opportunities
                 </p>
 
-                <form>
-                    <div class="row g-3">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="row g-2">
 
-                        <!-- Name -->
+                        <!-- Full Name -->
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Full Name</label>
-                            <input type="text" class="form-control form-control-lg" placeholder="Enter full name">
+                            <label class="form-label small fw-semibold">Full Name**</label>
+                            <input type="text" class="form-control" placeholder="Full name" formControlName="name"
+                                [class.is-invalid]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" />
                         </div>
 
                         <!-- Email -->
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Email Address</label>
-                            <input type="email" class="form-control form-control-lg" placeholder="Enter email">
-                        </div>
-
-                        <!-- Password -->
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold">Password</label>
-                            <input type="password" class="form-control form-control-lg" placeholder="Create password">
+                            <label class="form-label small fw-semibold">Email**</label>
+                            <input type="email" class="form-control" placeholder="Email" formControlName="email"
+                                [class.is-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" />
                         </div>
 
                         <!-- Contact -->
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Contact Number</label>
-                            <input type="tel" class="form-control form-control-lg" placeholder="Enter contact number">
+                            <label class="form-label small fw-semibold">Contact No**</label>
+                            <input type="tel" class="form-control" placeholder="Contact" formControlName="contact"
+                                [class.is-invalid]="registerForm.get('contact')?.invalid && registerForm.get('contact')?.touched" />
                         </div>
 
-                        <!-- Gender -->
+                        <!-- College -->
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold d-block">Gender</label>
-                            <div class="d-flex gap-3 mt-2">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender">
-                                    <label class="form-check-label">Male</label>
+                            <label class="form-label small fw-semibold">College Name</label>
+                            <input type="text" class="form-control" placeholder="College" formControlName="collegename"/>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender">
-                                    <label class="form-check-label">Female</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender">
-                                    <label class="form-check-label">Other</label>
+
+                            <!-- Degree -->
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Degree</label>
+                                <select class="form-select" formControlName="degree">
+                                    <option value="" disabled>Select Degree</option>
+                                    <option value="BCA">BCA</option>
+                                    <option value="MCA">MCA</option>
+                                    <option value="BSC">BSC</option>
+                                    <option value="MAC">MAC</option>
+                                    <option value="BTECH">BTech</option>
+                                    <option value="MTECH">MTech</option>
+                                </select>
+                            </div>
+
+                            <!-- Year -->
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Year</label>
+                                <select class="form-select" formControlName="year"
+                                    [class.is-invalid]="registerForm.get('year')?.invalid && registerForm.get('year')?.touched">
+                                    <option value="" disabled>Select Year</option>
+                                    <option value="1">1 Year</option>
+                                    <option value="2">2 Year</option>
+                                    <option value="3">3 Year</option>
+                                    <option value="4">4 Year</option>
+                                    <option value="5">5 Year</option>
+                                </select>
+                            </div>
+
+                            <!-- Company -->
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Company Name</label>
+                                <input type="text" class="form-control" placeholder="Company"
+                                    formControlName="companyName" />
+                            </div>
+
+                            <!-- Field -->
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Professional Field</label>
+                                <input type="text" class="form-control" placeholder="Field"
+                                    formControlName="professionalField"
+                                    [class.is-invalid]="registerForm.get('professionalField')?.invalid && registerForm.get('professionalField')?.touched" />
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold d-block">Gender</label>
+                                <div class="d-flex gap-2 mt-1 small">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="Male"
+                                            formControlName="gender">
+                                        <label class="form-check-label">Male</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="Female"
+                                            formControlName="gender">
+                                        <label class="form-check-label">Female</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="Other"
+                                            formControlName="gender">
+                                        <label class="form-check-label">Other</label>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- CV -->
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Upload CV**</label>
+                                <input type="file" class="form-control" formControlName="cv"
+                                    [class.is-invalid]="registerForm.get('cv')?.invalid && registerForm.get('cv')?.touched" />
+                            </div>
+
+                            <!-- Address -->
+                            <div class="col-12">
+                                <label class="form-label small fw-semibold">Address</label>
+                                <textarea class="form-control" rows="2" placeholder="Address" formControlName="address"
+                                    [class.is-invalid]="registerForm.get('address')?.invalid && registerForm.get('address')?.touched"></textarea>
+                            </div>
+
                         </div>
 
-                        <!-- CV Upload -->
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold">Upload CV</label>
-                            <input type="file" class="form-control form-control-lg">
+                        <!-- Submit -->
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-primary btn-sm fw-semibold"
+                                [disabled]="registerForm.invalid">
+                                Submit Application
+                            </button>
                         </div>
 
-                        <!-- Address -->
-                        <div class="col-12">
-                            <label class="form-label fw-semibold">Address</label>
-                            <textarea class="form-control form-control-lg" rows="3"
-                                placeholder="Enter your address"></textarea>
-                        </div>
-
-                    </div>
-
-                    <!-- Register Button -->
-                    <div class="d-grid mt-4">
-                        <button type="button" class="btn btn-primary btn-lg rounded-3 fw-semibold">
-                            Create Account
-                        </button>
-                    </div>
-
-                    <!-- Login -->
-                    <p class="text-center mt-3 mb-0">
-                        Already have an account?
-                        <a routerLink="/login" class="fw-semibold text-decoration-none">
-                            Login
-                        </a>
-                    </p>
-
+                        <p class="text-center mt-2 mb-0 small">
+                            Already have an account?
+                            <a routerLink="/login" class="fw-semibold text-decoration-none">Login</a>
+                        </p>
                 </form>
+
+
 
             </div>
         </div>
