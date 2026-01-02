@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
-import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { Dashboard } from './users/dashboard/dashboard';
+import { Navbar } from './users/navbar/navbar';
+import { Footer } from './users/footer/footer';
+import { Header } from './users/header/header';
+import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { ManagedPIntershiprogram } from './admin/managed-intership-program/managed-intership-program';
 import { ManagedCourse } from './admin/managed-course/managed-course';
 import { ManagedStaff } from './admin/managed-staff/managed-staff';
@@ -8,22 +11,18 @@ import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
 
 export const routes: Routes = [
+    { path: "dashboard", component: Dashboard },
+    { path: "navbar", component: Navbar },
+    { path: "header", component: Header },
+    { path: "footer", component: Footer },
     {
         path: 'admin/dashboard',
         component: AdminDashboard
     },
-    {
-        // 2. Add the Login route
-        path: 'admin/admin-login',
-        component: AdminLogin
-    },
-    {
-        path: 'user/dashboard',
-        component: Dashboard
-    },
+    
     {
         path: 'admin/managed-intership',
-        component: ManagedPIntershiprogram 
+        component: ManagedPIntershiprogram
     },
     {
         path: 'admin/managed-course',
@@ -38,6 +37,8 @@ export const routes: Routes = [
         redirectTo: 'user/dashboard',
         pathMatch: "full"
 
-    }
+    },
+
+    { path: "", redirectTo: "dashboard", pathMatch: "full" }
 
 ];
