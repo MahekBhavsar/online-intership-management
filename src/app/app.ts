@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Dashboard } from './users/dashboard/dashboard';
 
@@ -9,5 +9,5 @@ import { Dashboard } from './users/dashboard/dashboard';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('online-intership-management');
+
 }
