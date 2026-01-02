@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg bg-white sticky-top py-3 border-bottom">
+  <div class="container">
+    
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <div class="bg-primary rounded-3 me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+        <span class="text-white fw-bold">I</span>
+      </div>
+      <span class="fw-bolder fs-4 tracking-tight text-dark">Intern<span class="text-primary">Flow</span></span>
+    </a>
+
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      
+      <div class="mx-auto">
+        <span class="badge rounded-pill bg-light text-secondary px-3 py-2 border fw-medium d-none d-lg-inline-block">
+          <i class="bi bi-person-workspace me-1"></i> Student Workspace
+        </span>
+      </div>
+
+      <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+        <a href="#" class="btn btn-link text-decoration-none text-dark fw-bold px-3">Login</a>
+        <a href="#" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm custom-btn-gradient">
+          Get Started <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Minimal custom additions to boost the "Bootstrap Only" look */
+  .tracking-tight { letter-spacing: -1px; }
+  
+  /* Modern Gradient using Bootstrap Primary colors */
+  .custom-btn-gradient {
+    background: linear-gradient(45deg, #0d6efd, #6610f2);
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .custom-btn-gradient:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2) !important;
+  }
+</style>

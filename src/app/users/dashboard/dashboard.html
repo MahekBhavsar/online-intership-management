@@ -1,95 +1,148 @@
-<div class="container-fluid p-0 d-flex">
-  
-  <nav class="bg-dark text-white p-3 d-none d-md-block" style="width: 280px; min-height: 100vh;">
-    <h3 class="text-primary mb-4">InternFlow</h3>
-    <ul class="nav flex-column gap-2">
-      <li class="nav-item"><a href="#" class="nav-link text-white active bg-primary rounded"><i class="fas fa-home me-2"></i> Dashboard</a></li>
-      <li class="nav-item"><a href="#" class="nav-link text-white"><i class="fas fa-user-graduate me-2"></i> Interns</a></li>
-      <li class="nav-item"><a href="#" class="nav-link text-white"><i class="fas fa-briefcase me-2"></i> Projects</a></li>
-      <li class="nav-item"><a href="#" class="nav-link text-white"><i class="fas fa-tasks me-2"></i> Tasks</a></li>
-      <li class="nav-item"><a href="#" class="nav-link text-white"><i class="fas fa-cog me-2"></i> Settings</a></li>
-    </ul>
-  </nav>
+<div class="d-flex min-vh-100 bg-light">
+    <app-header class="d-none d-lg-block sticky-top vh-100 shadow-sm"></app-header>
 
-  <div class="flex-grow-1 bg-light">
-    
-    <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm px-4 py-3">
-      <div class="container-fluid">
-        <span class="navbar-brand fw-bold d-md-none">InternFlow</span>
-        
-        <div class="ms-auto d-flex gap-2">
-          <button class="btn btn-outline-primary px-4 shadow-sm fw-bold">Login</button>
-          <button class="btn btn-primary px-4 shadow-sm fw-bold">Sign Up</button>
-        </div>
-      </div>
-    </nav>
+    <div class="flex-grow-1 d-flex flex-column" style="overflow-x: hidden;">
+        <app-navbar></app-navbar>
 
-    <div class="p-4">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="h4 fw-bold">Internship Overview</h2>
-        <span class="text-muted">Friday, Jan 02, 2026</span>
-      </div>
+        <main class="p-4 p-md-5 flex-grow-1">
 
-      <div class="row g-4 mb-4">
-        <div class="col-12 col-sm-6 col-xl-3">
-          <div class="card border-0 shadow-sm p-3 border-start border-primary border-5">
-            <div class="text-muted small fw-bold">TOTAL INTERNS</div>
-            <div class="h3 fw-bold mb-0">124</div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-          <div class="card border-0 shadow-sm p-3 border-start border-success border-5">
-            <div class="text-muted small fw-bold">ACTIVE PROJECTS</div>
-            <div class="h3 fw-bold mb-0">12</div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-          <div class="card border-0 shadow-sm p-3 border-start border-warning border-5">
-            <div class="text-muted small fw-bold">PENDING APPROVALS</div>
-            <div class="h3 fw-bold mb-0">45</div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-          <div class="card border-0 shadow-sm p-3 border-start border-danger border-5">
-            <div class="text-muted small fw-bold">REJECTED APPLICATIONS</div>
-            <div class="h3 fw-bold mb-0">8</div>
-          </div>
-        </div>
-      </div>
+            <!-- Intro Section -->
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="fw-bold text-dark">Welcome to Tag97 Internships Program</h2>
+                    <p class="text-muted fs-6">
+                        TechConnect is a leading technology company specializing in software solutions, cloud computing,
+                        and AI-driven innovations.
+                        Our internship programs are designed to provide hands-on experience, mentorship, and exposure to
+                        real-world projects.
+                        Explore your department below and start building your professional journey.
+                    </p>
+                </div>
+            </div>
 
-      <div class="card border-0 shadow-sm mt-4">
-        <div class="card-header bg-white py-3 border-0">
-          <h5 class="mb-0 fw-bold">Recent Intern Applications</h5>
-        </div>
-        <div class="table-responsive p-3">
-          <table class="table table-hover align-middle">
-            <thead class="table-light">
-              <tr>
-                <th>Candidate Name</th>
-                <th>Role</th>
-                <th>Applied Date</th>
-                <th>Status</th>
-                <th class="text-end">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Jane Doe</strong></td>
-                <td>UI/UX Designer</td>
-                <td>Jan 01, 2026</td>
-                <td><span class="badge bg-success-subtle text-success p-2">Reviewed</span></td>
-                <td class="text-end"><button class="btn btn-sm btn-light border">View</button></td>
-              </tr>
-              <tr>
-                <td><strong>John Smith</strong></td>
-                <td>Frontend Developer</td>
-                <td>Dec 30, 2025</td>
-                <td><span class="badge bg-warning-subtle text-warning p-2">Pending</span></td>
-                <td class="text-end"><button class="btn btn-sm btn-light border">View</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      
-    </div> </div> </div>
+            <!-- Search and Header Section -->
+            <div class="row mb-5 align-items-center">
+                <div class="col-md-7">
+                    <h1 class="fw-bold text-dark h2">Student Module: Course Selection 👋</h1>
+                    <p class="text-muted">Select your department to manage internships and view specialized career
+                        paths.</p>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-group rounded-pill border bg-white p-1 shadow-sm" style="margin-top: -20px;">
+                        <span class="input-group-text bg-transparent border-0"><i
+                                class="bi bi-search text-primary"></i></span>
+                        <input type="text" class="form-control border-0 shadow-none"
+                            placeholder="Search for courses or roles...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Cards -->
+            <div class="row g-4 mb-5">
+                <!-- BCA Card -->
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 transition-up">
+                        <div class="p-3 text-center bg-primary bg-opacity-10 rounded-top-4">
+                            <img src="bca.webp" alt="BCA" class="img-fluid"
+                                style="max-height: 100px; object-fit: contain;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">BCA</h5>
+                            <p class="card-text text-muted small">Bachelor of Computer Applications. Focus on software
+                                development, programming, and web technologies.</p>
+                            <a href="#" class="btn btn-primary w-100 rounded-pill fw-bold py-2 shadow-sm">Enter
+                                Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCA Card -->
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 transition-up">
+                        <div class="p-3 text-center bg-success bg-opacity-10 rounded-top-4">
+                            <img src="mca.webp" alt="MCA" class="img-fluid"
+                                style="max-height: 100px; object-fit: contain;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">MCA</h5>
+                            <p class="card-text text-muted small">Master of Computer Applications. Advanced focus on
+                                software development, algorithms, and database management.</p>
+                            <a href="#" class="btn btn-success w-100 rounded-pill fw-bold py-2 shadow-sm">Enter
+                                Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B.Sc Card -->
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 transition-up">
+                        <div class="p-3 text-center bg-warning bg-opacity-10 rounded-top-4">
+                            <img src="bsc.webp" alt="B.Sc" class="img-fluid"
+                                style="max-height: 100px; object-fit: contain;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">B.Sc</h5>
+                            <p class="card-text text-muted small">Bachelor of Science. Core focus on subjects like
+                                Physics, Chemistry, Mathematics, and practical experiments.</p>
+                            <a href="#" class="btn btn-warning w-100 rounded-pill fw-bold py-2 shadow-sm">Enter
+                                Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- M.Sc Card -->
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 transition-up">
+                        <div class="p-3 text-center bg-info bg-opacity-10 rounded-top-4">
+                            <img src="msc.webp" alt="M.Sc" class="img-fluid"
+                                style="max-height: 100px; object-fit: contain;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">M.Sc</h5>
+                            <p class="card-text text-muted small">Master of Science. Advanced studies in scientific
+                                research, experiments, and analytical techniques.</p>
+                            <a href="#" class="btn btn-info w-100 rounded-pill fw-bold py-2 shadow-sm">Enter
+                                Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B.Tech Card -->
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 transition-up">
+                        <div class="p-3 text-center bg-danger bg-opacity-10 rounded-top-4">
+                            <img src="btech.webp" alt="B.Tech" class="img-fluid"
+                                style="max-height: 100px; object-fit: contain;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">B.Tech</h5>
+                            <p class="card-text text-muted small">Bachelor of Technology. Focus on engineering
+                                disciplines like Computer, Mechanical, Electrical, and Civil Engineering.</p>
+                            <a href="#" class="btn btn-danger w-100 rounded-pill fw-bold py-2 shadow-sm">Enter
+                                Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- M.Tech Card -->
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 transition-up">
+                        <div class="p-3 text-center bg-secondary bg-opacity-10 rounded-top-4">
+                            <img src="mtech.webp" alt="M.Tech" class="img-fluid"
+                                style="max-height: 100px; object-fit: contain;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">M.Tech</h5>
+                            <p class="card-text text-muted small">Master of Technology. Advanced engineering studies
+                                with specialization in areas like AI, Software, and Electronics.</p>
+                            <a href="#" class="btn btn-secondary w-100 rounded-pill fw-bold py-2 shadow-sm">Enter
+                                Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <app-footer></app-footer>
+    </div>
+</div>
