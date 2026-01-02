@@ -4,6 +4,7 @@ import { Dashboard } from './users/dashboard/dashboard';
 import { ManagedPIntershiprogram } from './admin/managed-intership-program/managed-intership-program';
 import { ManagedCourse } from './admin/managed-course/managed-course';
 import { ManagedStaff } from './admin/managed-staff/managed-staff';
+import { ManageApplication } from './admin/manage-application/manage-application';
 
 export const routes: Routes = [
     {
@@ -13,6 +14,10 @@ export const routes: Routes = [
     {
         path: 'user/dashboard',
         component: Dashboard
+    },
+    {
+        path:'admin/manage-application',
+        component:ManageApplication
     },
     {
         path: 'admin/managed-intership',
