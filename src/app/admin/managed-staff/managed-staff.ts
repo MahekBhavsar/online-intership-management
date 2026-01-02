@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Observable } from 'rxjs'; // Import Observable
 
 import { FirebaseService } from '../../firebase-service/firebase-service';
 import { FirebaseCollections } from '../../firebase-service/firebase-enums';
@@ -13,9 +14,10 @@ import { Staff } from '../../Interfaces/staff';
   templateUrl: './managed-staff.html',
 })
 export class ManagedStaff implements OnInit {
-
   staffForm!: FormGroup;
-  staffList: Staff[] = [];
+  
+  // 1. Change to an Observable
+  staffList$!: Observable<Staff[]>; 
 
   constructor(
     private fb: FormBuilder,
@@ -36,31 +38,30 @@ export class ManagedStaff implements OnInit {
     });
   }
 
- loadStaff() {
-  this.firebaseService
-    .getCollection<Staff>(FirebaseCollections.Staff)
-    .subscribe(res => {
-      this.staffList = res;
-    });
-}
+  loadStaff() {
+    // 2. Assign the observable directly instead of subscribing manually
+    this.staffList$ = this.firebaseService.getCollection<Staff>(FirebaseCollections.Staff);
+  }
 
-  submit() {
+  async submit() {
     if (this.staffForm.invalid) return;
 
     const staffData: Staff = {
-      staffId: this.staffForm.value.staffId,
-      password: this.staffForm.value.password,
-      staffName: this.staffForm.value.staffName,
-      email: this.staffForm.value.email,
+      ...this.staffForm.value,
       role: 'staff',
       createdAt: new Date(),
     };
 
-    this.firebaseService
-      .addDocument(FirebaseCollections.Staff, staffData)
-      .then(() => {
-        this.staffForm.reset();
-        alert('Staff added successfully');
-      });
+    try {
+      await this.firebaseService.addDocument(FirebaseCollections.Staff, staffData);
+      this.staffForm.reset();
+      alert('Staff added successfully');
+      // No need to manually reload if your Firebase service uses real-time updates (onSnapshot),
+      // but if it's a one-time fetch, calling loadStaff() again works:
+      this.loadStaff(); 
+    } catch (error) {
+      console.error('Error adding staff:', error);
+      alert('Failed to add staff.');
+    }
   }
 }

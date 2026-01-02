@@ -1,23 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Observable, take } from 'rxjs';
+
 import { FirebaseService } from '../../firebase-service/firebase-service';
 import { FirebaseCollections } from '../../firebase-service/firebase-enums';
 import { Course } from '../../Interfaces/course';
-
+import { Staff } from '../../Interfaces/staff';
 
 @Component({
   selector: 'app-managed-course',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './managed-course.html',
-  styleUrl: './managed-course.css',
 })
 export class ManagedCourse implements OnInit {
-
   courseForm!: FormGroup;
-  staffList: any[] = [];
-  courses: Course[] = [];
+  
+  // These MUST be Observables for the | async pipe to work
+  staffList$!: Observable<Staff[]>;
+  courses$!: Observable<Course[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -26,8 +28,7 @@ export class ManagedCourse implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.loadStaff();
-    this.loadCourses();
+    this.loadData();
   }
 
   initForm() {
@@ -37,37 +38,46 @@ export class ManagedCourse implements OnInit {
     });
   }
 
-  loadStaff() {
-    this.firebaseService
-      .getCollection<any>(FirebaseCollections.Staff)
-      .subscribe((res: any[]) => this.staffList = res);
+  loadData() {
+    // Directly assign the service call to the Observable variables
+    this.staffList$ = this.firebaseService.getCollection<Staff>(FirebaseCollections.Staff);
+    this.courses$ = this.firebaseService.getCollection<Course>(FirebaseCollections.Course);
   }
 
-  loadCourses() {
-    this.firebaseService
-      .getCollection<Course>(FirebaseCollections.Course)
-      .subscribe((res: Course[]) => this.courses = res);
-  }
-
-  submit() {
+  async submit() {
     if (this.courseForm.invalid) return;
 
-    const staff = this.staffList.find(
-      s => s.id === this.courseForm.value.staffId
-    );
+    try {
+      // Get a one-time snapshot of staff to find the name associated with the ID
+      const staffList = await new Promise<Staff[]>((resolve) => 
+        this.staffList$.pipe(take(1)).subscribe(resolve)
+      );
 
-    const courseData: Course = {
-      courseName: this.courseForm.value.courseName,
-      assignedStaffId: staff.id,
-      assignedStaffName: staff.name,
-      createdAt: new Date(),
-    };
+      const selectedStaff = staffList.find(s => s.staffId === this.courseForm.value.staffId);
 
-    this.firebaseService
-      .addDocument(FirebaseCollections.Course, courseData)
-      .then(() => {
-        this.courseForm.reset();
-        alert('Course added successfully');
-      });
+      if (!selectedStaff) {
+        alert('Staff member not found');
+        return;
+      }
+
+      const courseData: Course = {
+        courseName: this.courseForm.value.courseName,
+        assignedStaffId: selectedStaff.staffId,
+        assignedStaffName: selectedStaff.staffName, 
+        createdAt: new Date(),
+      };
+
+      await this.firebaseService.addDocument(FirebaseCollections.Course, courseData);
+      
+      this.courseForm.reset({ staffId: '' });
+      alert('Course added successfully');
+      
+      // Refresh the stream if your service doesn't use real-time listeners
+      this.loadData();
+      
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('Error saving course');
+    }
   }
 }

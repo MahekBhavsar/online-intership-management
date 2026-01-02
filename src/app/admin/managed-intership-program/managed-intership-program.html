@@ -1,27 +1,23 @@
 <div class="container mt-4">
-
-  <!-- Add Program -->
   <div class="card shadow-sm mb-4 border-0">
     <div class="card-body">
       <h5 class="fw-bold mb-3">Add Internship Program</h5>
 
       <form [formGroup]="programForm" (ngSubmit)="submit()">
-
         <div class="mb-3">
           <label class="form-label">Program Name</label>
           <input class="form-control" formControlName="programName" />
         </div>
 
         <div class="mb-3">
-  <label class="form-label">Course</label>
-  <select class="form-select" formControlName="courseId">
-    <option value="">Select Course</option>
-    <option *ngFor="let c of courses" [value]="c.id">
-      {{ c.courseName }}
-    </option>
-  </select>
-</div>
-
+          <label class="form-label">Course</label>
+          <select class="form-select" formControlName="courseId">
+            <option value="">Select Course</option>
+            @for (c of (courses$ | async); track c.id) {
+              <option [value]="c.id">{{ c.courseName }}</option>
+            }
+          </select>
+        </div>
 
         <div class="mb-3">
           <label class="form-label">Duration</label>
@@ -32,21 +28,19 @@
           <label class="form-label">Assign Staff</label>
           <select class="form-select" formControlName="staffId">
             <option value="">Select Staff</option>
-            <option *ngFor="let s of staffList" [value]="s.id">
-              {{ s.name }}
-            </option>
+            @for (s of (staffList$ | async); track s.staffId) {
+              <option [value]="s.staffId">{{ s.staffName }}</option>
+            }
           </select>
         </div>
 
-        <button class="btn btn-primary w-100" type="submit">
+        <button class="btn btn-primary w-100" type="submit" [disabled]="programForm.invalid">
           Add Program
         </button>
-
       </form>
     </div>
   </div>
 
-  <!-- Program List -->
   <div class="card shadow-sm border-0">
     <div class="card-body">
       <h5 class="fw-bold mb-3">Internship Programs</h5>
@@ -61,16 +55,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let p of programs">
-            <td>{{ p.programName }}</td>
-            <td>{{ p.courseName }}</td>
-            <td>{{ p.duration }}</td>
-            <td>{{ p.assignedStaffName }}</td>
-          </tr>
+          @for (p of (programs$ | async); track p.programName) {
+            <tr>
+              <td>{{ p.programName }}</td>
+              <td>{{ p.courseName }}</td>
+              <td>{{ p.duration }}</td>
+              <td>{{ p.assignedStaffName }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="text-center">No programs available.</td>
+            </tr>
+          }
         </tbody>
       </table>
-
     </div>
   </div>
-
 </div>

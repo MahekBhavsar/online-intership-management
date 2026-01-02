@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Observable, take } from 'rxjs';
+
 import { FirebaseService } from '../../firebase-service/firebase-service';
 import { FirebaseCollections } from '../../firebase-service/firebase-enums';
 
@@ -9,15 +11,14 @@ import { FirebaseCollections } from '../../firebase-service/firebase-enums';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './managed-intership-program.html',
-  styleUrl: './managed-intership-program.css',
 })
-export class ManagedIntershipProgram implements OnInit {
-
+export class ManagedPIntershiprogram implements OnInit {
   programForm!: FormGroup;
 
-  courses: any[] = [];
-  staffList: any[] = [];
-  programs: any[] = [];
+  // Define Observables for the Async pipe
+  courses$!: Observable<any[]>;
+  staffList$!: Observable<any[]>;
+  programs$!: Observable<any[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -26,9 +27,7 @@ export class ManagedIntershipProgram implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.loadCourses();
-    this.loadStaff();
-    this.loadPrograms();
+    this.loadData();
   }
 
   initForm() {
@@ -40,45 +39,51 @@ export class ManagedIntershipProgram implements OnInit {
     });
   }
 
-  loadCourses() {
-    this.firebaseService
-      .getCollection<any>(FirebaseCollections.Course)
-      .subscribe((res: any[]) => this.courses = res);
+  loadData() {
+    // Directly assign the service calls to the Observables
+    this.courses$ = this.firebaseService.getCollection(FirebaseCollections.Course);
+    this.staffList$ = this.firebaseService.getCollection(FirebaseCollections.Staff);
+    this.programs$ = this.firebaseService.getCollection(FirebaseCollections.Intership_program);
   }
 
-  loadStaff() {
-    this.firebaseService
-      .getCollection<any>(FirebaseCollections.Staff)
-      .subscribe((res: any[]) => this.staffList = res);
-  }
-
-  loadPrograms() {
-    this.firebaseService
-      .getCollection<any>(FirebaseCollections.Intership_program)
-      .subscribe((res: any[]) => this.programs = res);
-  }
-
-  submit() {
+  async submit() {
     if (this.programForm.invalid) return;
 
-    const course = this.courses.find(c => c.id === this.programForm.value.courseId);
-    const staff = this.staffList.find(s => s.id === this.programForm.value.staffId);
+    try {
+      // 1. Get current snapshots of both lists to find the names
+      const [courses, staffList] = await Promise.all([
+        new Promise<any[]>(res => this.courses$.pipe(take(1)).subscribe(res)),
+        new Promise<any[]>(res => this.staffList$.pipe(take(1)).subscribe(res))
+      ]);
 
-    const programData = {
-      programName: this.programForm.value.programName,
-      courseId: course.id,
-      courseName: course.name,
-      duration: this.programForm.value.duration,
-      assignedStaffId: staff.id,
-      assignedStaffName: staff.name,
-      createdAt: new Date(),
-    };
+      const selectedCourse = courses.find(c => c.id === this.programForm.value.courseId);
+      const selectedStaff = staffList.find(s => s.staffId === this.programForm.value.staffId);
 
-    this.firebaseService
-      .addDocument(FirebaseCollections.Intership_program, programData)
-      .then(() => {
-        this.programForm.reset();
-        alert('Internship Program Added Successfully');
-      });
+      if (!selectedCourse || !selectedStaff) {
+        alert('Selection error: Course or Staff not found.');
+        return;
+      }
+
+      const programData = {
+        programName: this.programForm.value.programName,
+        courseId: selectedCourse.id,
+        courseName: selectedCourse.courseName,
+        duration: this.programForm.value.duration,
+        assignedStaffId: selectedStaff.staffId,
+        assignedStaffName: selectedStaff.staffName,
+        createdAt: new Date(),
+      };
+
+      await this.firebaseService.addDocument(FirebaseCollections.Intership_program, programData);
+      
+      this.programForm.reset({ courseId: '', staffId: '' });
+      alert('Program added successfully!');
+      
+      // Refresh list
+      this.loadData();
+    } catch (error) {
+      console.error('Save error:', error);
+      alert('Error saving program.');
+    }
   }
 }
