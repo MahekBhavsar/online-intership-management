@@ -10,7 +10,7 @@
         <div class="card-body">
           <form [formGroup]="form" (ngSubmit)="onLogin()">
 
-            <!-- Email -->
+            
             <div class="mb-3">
               <label class="form-label">Email</label>
               <input
@@ -25,7 +25,7 @@
               <div class="text-danger">Email is required</div>
             }
 
-            <!-- Password -->
+            
             <div class="mb-3">
               <label class="form-label">Password</label>
               <input
@@ -40,7 +40,7 @@
               <div class="text-danger">Password is required</div>
             }
 
-            <!-- Login Button -->
+            
             <button
               type="submit"
               class="btn btn-primary w-100"
@@ -66,7 +66,6 @@
   </div>
 </div>
 
-<!-- ❌ ERROR POPUP -->
 <div class="popup-backdrop" *ngIf="showError">
   <div class="popup-box">
     <h5 class="text-danger">Login Failed</h5>

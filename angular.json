@@ -25,18 +25,8 @@
                 "input": "public"
               }
             ],
-<<<<<<< HEAD
-            "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
-            ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
-=======
             "styles": ["src/styles.css", "node_modules/bootstrap/dist/css/bootstrap.min.css"],
             "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
->>>>>>> 166a0cef0ca06ea29c9c6afec2c50d3f99b8ea0e
           },
           "configurations": {
             "production": {

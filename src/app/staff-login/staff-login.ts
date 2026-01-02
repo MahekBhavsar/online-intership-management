@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FirebaseService } from '../firebase-service/firebase-service';
+import { FirebaseCollections } from '../firebase-service/firebase-enums';
+import { firstValueFrom } from 'rxjs';
+import { Staff } from '../Interfaces/staff';
+
 
 interface LoginForm {
   email: FormControl<string | null>;
   password: FormControl<string | null>;
-}
-
-interface Staff {
-  email: string;
-  password: string;
 }
 
 @Component({
@@ -20,34 +20,54 @@ interface Staff {
   templateUrl: './staff-login.html',
   styleUrls: ['./staff-login.css'],
 })
-export class StaffLogin {
+export class StaffLogin implements OnInit {
 
   form = new FormGroup<LoginForm>({
     email: new FormControl(null, [
       Validators.required,
-      Validators.pattern(/^[a-zA-Z0-9._%+-]+@tag97(\.[a-zA-Z]{2,})?$/)
+      Validators.pattern(/^[a-zA-Z0-9._%+-]+@gmail(\.[a-zA-Z]{2,})?$/)
     ]),
     password: new FormControl(null, Validators.required),
   });
 
-  // demo staff list (later service/API se aa sakta hai)
-  staffList: Staff[] = [
-    { email: 'staff1@tag97.com', password: '123456' },
-    { email: 'staff2@tag97.com', password: 'abcdef' }
-  ];
-
-  // popup control
+  staffList: Staff[] = []; // 🔹 Now using Staff interface
   showError = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private firebaseService: FirebaseService
+  ) {}
 
-  onLogin() {
+  ngOnInit() {
+    this.loadStaff();
+  }
+
+  // 🔹 Load staff using async/await instead of subscribe
+  async loadStaff() {
+    try {
+      const data = await firstValueFrom(
+        this.firebaseService.getCollection<Staff>(FirebaseCollections.Staff)
+      );
+      this.staffList = data;
+      console.log('Staff List:', this.staffList);
+    } catch (error) {
+      console.error('Error fetching staff:', error);
+    }
+  }
+
+  async onLogin() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    const { email, password } = this.form.value;
+    const email = this.form.value.email!;
+    const password = this.form.value.password!;
+
+    // 🔹 Make sure staffList is loaded
+    if (this.staffList.length === 0) {
+      await this.loadStaff();
+    }
 
     const staff = this.staffList.find(
       s => s.email === email && s.password === password
@@ -58,7 +78,6 @@ export class StaffLogin {
       console.log('Staff Login Successful:', staff);
       this.router.navigate(['/staff-dashboard']);
     } else {
-      // ❌ wrong credentials
       this.showError = true;
     }
   }
