@@ -7,6 +7,8 @@ import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { ManagedPIntershiprogram } from './admin/managed-intership-program/managed-intership-program';
 import { ManagedCourse } from './admin/managed-course/managed-course';
 import { ManagedStaff } from './admin/managed-staff/managed-staff';
+import { Login } from './users/login/login';
+import { AdminLogin } from './admin/Adminlogin/admin-login';
 
 export const routes: Routes = [
     { path: "dashboard", component: Dashboard },
@@ -30,12 +32,7 @@ export const routes: Routes = [
         path: 'admin/managed-staff',
         component: ManagedStaff
     },
-    {
-        path: '',
-        redirectTo: 'user/dashboard',
-        pathMatch: "full"
-
-    },
+  
 
     { path: "", redirectTo: "dashboard", pathMatch: "full" }
 
