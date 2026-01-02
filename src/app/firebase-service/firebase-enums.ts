@@ -4,5 +4,5 @@ export enum FirebaseCollections {
     Application ='application',
     Course='course',
     Intership_program='intership_program'
-    
+
 }
