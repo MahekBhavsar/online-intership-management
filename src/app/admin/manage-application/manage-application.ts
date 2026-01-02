@@ -12,29 +12,32 @@ import { Staff } from '../../Interfaces/staff';
 })
 export class ManageApplication {
  applications = signal<Application[]>([]);
-
-  // Staff list for dropdown
   staffs: Staff[] = [];
 
   constructor(private firebaseService: FirebaseService) {}
 
   ngOnInit(): void {
     this.loadApplications();
-    this.loadStaffs(); // 🔥 IMPORTANT
+    this.loadStaffs();
   }
 
-  loadApplications() {
-    this.firebaseService
-      .getCollection<Application>(FirebaseCollections.Application)
-      .subscribe(data => this.applications.set(data));
-  }
+loadApplications() {
+  this.firebaseService
+    .getCollection<Application>(FirebaseCollections.Application)
+    .subscribe(data => {
+      // Only show pending applications
+      const pendingApps = data.filter(app => app.status === 'pending');
+      this.applications.set(pendingApps);
+    });
+}
+
 
   loadStaffs() {
     this.firebaseService
       .getCollection<Staff>(FirebaseCollections.Staff)
       .subscribe(data => {
         this.staffs = data;
-        console.log('Staff Loaded:', data); // debug
+        console.log('Staff Loaded:', data);
       });
   }
 
@@ -43,7 +46,8 @@ export class ManageApplication {
       FirebaseCollections.Application,
       app.id!,
       { status: 'approved' }
-    );
+    ).then(() => this.loadApplications());
+    console.log(this.approveApplication);
   }
 
   rejectApplication(app: Application) {
@@ -51,7 +55,7 @@ export class ManageApplication {
       FirebaseCollections.Application,
       app.id!,
       { status: 'rejected' }
-    );
+    ).then(() => this.loadApplications());
   }
 
   assignStaff(app: Application, staffId: string) {
@@ -61,6 +65,6 @@ export class ManageApplication {
       FirebaseCollections.Application,
       app.id!,
       { assignedStaffId: staffId }
-    );
+    ).then(() => this.loadApplications());
   }
 }
