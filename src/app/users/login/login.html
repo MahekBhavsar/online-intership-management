@@ -14,35 +14,22 @@
           <!-- Email -->
           <div class="mb-3">
             <label class="form-label fw-semibold">Email</label>
-            <input
-              type="email"
-              class="form-control form-control-lg"
-              placeholder="Enter your email"
-              formControlName="email"
-              [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
-            />
+            <input type="email" class="form-control form-control-lg" placeholder="Enter your email"
+              formControlName="email" [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched" />
             <div class="invalid-feedback">Valid email required</div>
           </div>
 
           <!-- Password -->
           <div class="mb-4">
             <label class="form-label fw-semibold">Password</label>
-            <input
-              type="password"
-              class="form-control form-control-lg"
-              placeholder="Enter your password"
+            <input type="password" class="form-control form-control-lg" placeholder="Enter your password"
               formControlName="password"
-              [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
-            />
+              [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched" />
             <div class="invalid-feedback">Password required</div>
           </div>
 
           <!-- Button -->
-          <button
-            type="submit"
-            class="btn btn-login btn-lg w-100"
-            [disabled]="form.invalid"
-          >
+          <button type="submit" class="btn btn-login btn-lg w-100" [disabled]="form.invalid">
             Login
           </button>
 
