@@ -12,6 +12,7 @@ import { Interview } from './interview/interview';
 import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
 import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
+import { StaffMyTimetable } from './staff-my-timetable/staff-my-timetable';
 
 export const routes: Routes = [
     { path: "dashboard", component: Dashboard },
@@ -51,6 +52,10 @@ export const routes: Routes = [
     {
         path: 'admin/staff-timetable',
         component: StaffTimetable
+    },
+    {
+        path:'staff-my-timetable',
+        component:StaffMyTimetable
     },
 
     { path: "", redirectTo: "dashboard", pathMatch: "full" }

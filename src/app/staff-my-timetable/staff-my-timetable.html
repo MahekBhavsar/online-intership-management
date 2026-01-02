@@ -1,0 +1,34 @@
+<h3>My Timetable</h3>
+
+<div class="day-buttons mb-3">
+  <button *ngFor="let day of daysOfWeek" (click)="selectDay(day)" 
+          [class.active]="selectedDay === day">
+    {{ day }}
+  </button>
+</div>
+
+<div *ngIf="isLoading">Loading...</div>
+
+<div *ngIf="slots.length === 0 && !isLoading">
+  <p>No slots available for {{ selectedDay }}</p>
+</div>
+
+<div *ngFor="let slot of slots" class="slot-card mb-2 p-2 border">
+  <p><b>{{ slot.startTime }} - {{ slot.endTime }}</b></p>
+  <div class="row g-2">
+    <div class="col-4">
+      <select [(ngModel)]="slot.slotType" class="form-select">
+        <option value="busy">Not Available</option>
+        <option value="free">Available</option>
+      </select>
+    </div>
+    <div class="col-6">
+      <input type="text" [(ngModel)]="slot.subject" class="form-control" placeholder="Subject / Activity">
+    </div>
+    <div class="col-2">
+      <button class="btn btn-primary w-100" (click)="updateSlot(slot)">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
