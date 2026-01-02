@@ -8,7 +8,6 @@ interface LoginForm {
   password: FormControl<string | null>;
 }
 
-// ✅ Added Staff interface to fix "Cannot find name 'Staff'"
 interface Staff {
   email: string;
   password: string;
