@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h3 class="text-center mb-4">Interview Candidates</h3>
+
+  <table class="table table-bordered text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+
+        <td>
+          <button
+            class="btn btn-success btn-sm me-2"
+            (click)="acceptUser(user)"
+            [disabled]="user.status !== 'Pending'">
+            Accept
+          </button>
+
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="rejectUser(user)"
+            [disabled]="user.status !== 'Pending'">
+            Reject
+          </button>
+
+          <div class="mt-2">
+            <span
+              class="badge"
+              [ngClass]="{
+                'bg-success': user.status === 'Accepted',
+                'bg-danger': user.status === 'Rejected',
+                'bg-warning': user.status === 'Pending'
+              }">
+              {{ user.status }}
+            </span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

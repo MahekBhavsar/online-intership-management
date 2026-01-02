@@ -18,11 +18,11 @@
                 class="form-control"
                 placeholder="Enter staff email"
                 formControlName="email"
-                [class.is-invalid]="form.controls['email'].invalid && form.controls['email'].touched ">
+                [class.is-invalid]="form.controls['email'].invalid && form.controls['email'].touched">
             </div>
-            @if (form.controls['email'].invalid && (form.controls['email'].touched || form.controls['email'].dirty)) 
-            {
-                <div class="text-danger">Email is required</div>
+
+            @if (form.controls['email'].invalid && (form.controls['email'].touched || form.controls['email'].dirty)) {
+              <div class="text-danger">Email is required</div>
             }
 
             <!-- Password -->
@@ -33,13 +33,14 @@
                 class="form-control"
                 placeholder="Enter password"
                 formControlName="password"
-                [class.is-invalid]="form.controls['password'].invalid && form.controls['password'].touched ">
-              </div>
-              @if (form.controls['password'].invalid && (form.controls['password'].touched || form.controls['password'].dirty)) 
-              {
-                <div class="text-danger">Password is required</div>
-              }
-            <!-- Button -->
+                [class.is-invalid]="form.controls['password'].invalid && form.controls['password'].touched">
+            </div>
+
+            @if (form.controls['password'].invalid && (form.controls['password'].touched || form.controls['password'].dirty)) {
+              <div class="text-danger">Password is required</div>
+            }
+
+            <!-- Login Button -->
             <button
               type="submit"
               class="btn btn-primary w-100"
@@ -47,13 +48,13 @@
               Login
             </button>
           </form>
-          <button
-                type="button"
-                class="btn btn-success w-100 mt-3"
-                (click)="goToDashboard()">
-                Go to Dashboard
-          </button>
 
+          <button
+            type="button"
+            class="btn btn-success w-100 mt-3"
+            (click)="goToDashboard()">
+            Go to Dashboard
+          </button>
         </div>
 
         <div class="card-footer text-center">
@@ -62,5 +63,17 @@
       </div>
 
     </div>
+  </div>
+</div>
+
+<!-- ❌ ERROR POPUP -->
+<div class="popup-backdrop" *ngIf="showError">
+  <div class="popup-box">
+    <h5 class="text-danger">Login Failed</h5>
+    <p>Email or Password is wrong</p>
+
+    <button class="btn btn-secondary btn-sm" (click)="closePopup()">
+      Close
+    </button>
   </div>
 </div>

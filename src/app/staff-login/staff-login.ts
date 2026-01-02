@@ -30,7 +30,14 @@ export class StaffLogin {
     password: new FormControl(null, Validators.required),
   });
 
-  staffList: Staff[] = [];
+  // demo staff list (later service/API se aa sakta hai)
+  staffList: Staff[] = [
+    { email: 'staff1@tag97.com', password: '123456' },
+    { email: 'staff2@tag97.com', password: 'abcdef' }
+  ];
+
+  // popup control
+  showError = false;
 
   constructor(private router: Router) {}
 
@@ -41,16 +48,23 @@ export class StaffLogin {
     }
 
     const { email, password } = this.form.value;
+
     const staff = this.staffList.find(
       s => s.email === email && s.password === password
     );
 
     if (staff) {
+      this.showError = false;
       console.log('Staff Login Successful:', staff);
       this.router.navigate(['/staff-dashboard']);
     } else {
-      this.router.navigate(['/staff-dashboard']);
+      // ❌ wrong credentials
+      this.showError = true;
     }
+  }
+
+  closePopup() {
+    this.showError = false;
   }
 
   goToDashboard() {
