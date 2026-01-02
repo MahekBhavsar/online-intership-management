@@ -63,8 +63,11 @@ export class ManagedCourse implements OnInit {
       const courseData: Course = {
         courseName: this.courseForm.value.courseName,
         assignedStaffId: selectedStaff.staffId,
-        assignedStaffName: selectedStaff.staffName, 
+        assignedStaffName: selectedStaff.staffName,
         createdAt: new Date(),
+        department: '',
+        duration: '',
+        fees: ''
       };
 
       await this.firebaseService.addDocument(FirebaseCollections.Course, courseData);

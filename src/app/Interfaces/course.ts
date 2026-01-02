@@ -4,4 +4,7 @@ export interface Course {
   assignedStaffId: string;   // Staff UID
   assignedStaffName: string; // Staff Name (for display)
   createdAt: Date;
+  department:string;
+  duration:string;
+  fees:string
 }
