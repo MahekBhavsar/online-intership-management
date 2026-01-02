@@ -14,7 +14,7 @@ import { Injectable } from '@angular/core';
    updateDoc,
  } from '@angular/fire/firestore';
  import { Observable } from 'rxjs';
- import { FirebaseCollections } from '../firebase-service/firebase-enums';
+ import { FirebaseCollections } from '../../enums/firebase-collections';
  
  @Injectable({
    providedIn: 'root',

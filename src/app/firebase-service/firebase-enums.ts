@@ -3,6 +3,6 @@ export enum FirebaseCollections {
     Staff = 'staff',
     Application ='application',
     Course='course',
-    
+    Intership_program='intership_program'
 
 }

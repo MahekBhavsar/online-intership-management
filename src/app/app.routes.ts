@@ -1,3 +1,36 @@
 import { Routes } from '@angular/router';
+import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
+import { Dashboard } from './users/dashboard/dashboard';
+import { ManagedIntershipProgram } from './admin/managed-intership-program/managed-intership-program';
+import { ManagedCourse } from './admin/managed-course/managed-course';
+import { ManagedStaff } from './admin/managed-staff/managed-staff';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+    {
+        path: 'admin/dashboard',
+        component: AdminDashboard
+    },
+    {
+        path: 'user/dashboard',
+        component: Dashboard
+    },
+    {
+        path: 'admin/managed-intership',
+        component: ManagedIntershipProgram
+    },
+    {
+        path: 'admin/managed-course',
+        component: ManagedCourse
+    },
+    {
+        path: 'admin/managed-staff',
+        component: ManagedStaff
+    },
+    {
+        path: '',
+        redirectTo: 'user/dashboard',
+        pathMatch: "full"
+
+    }
+
+];

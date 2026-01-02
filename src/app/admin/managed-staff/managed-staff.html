@@ -1,0 +1,67 @@
+<div class="container mt-4">
+
+  <!-- Add Staff -->
+  <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+      <h5 class="fw-bold mb-3">Add Staff</h5>
+
+      <form [formGroup]="staffForm" (ngSubmit)="submit()">
+
+        <div class="mb-3">
+          <label class="form-label">Staff ID</label>
+          <input class="form-control" formControlName="staffId" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" formControlName="password" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Staff Name</label>
+          <input class="form-control" formControlName="staffName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email (optional)</label>
+          <input class="form-control" formControlName="email" />
+        </div>
+
+        <button class="btn btn-primary w-100" type="submit">
+          Add Staff
+        </button>
+
+      </form>
+    </div>
+  </div>
+<div class="card shadow-sm border-0">
+  <div class="card-body">
+    <h5 class="fw-bold mb-3">Staff List</h5>
+
+    <table class="table table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Staff ID</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (s of staffList; track s.staffId) {
+          <tr>
+            <td>{{ s.staffId }}</td>
+            <td>{{ s.staffName }}</td>
+            <td>{{ s.email || '-' }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="3" class="text-center text-muted">
+              No staff members found.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+  </div>
+</div>
