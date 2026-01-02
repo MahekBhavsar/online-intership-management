@@ -8,6 +8,7 @@ import { ManagedPIntershiprogram } from './admin/managed-intership-program/manag
 import { ManagedCourse } from './admin/managed-course/managed-course';
 import { ManagedStaff } from './admin/managed-staff/managed-staff';
 import { StaffLogin } from './staff-login/staff-login';
+import { Interview } from './interview/interview';
 
 export const routes: Routes = [
     { path: "dashboard", component: Dashboard },
@@ -34,6 +35,10 @@ export const routes: Routes = [
     {
         path:'staff-login',
         component:StaffLogin
+    },
+    {
+        path:'interview',
+        component:Interview
     },
     {
         path: '',

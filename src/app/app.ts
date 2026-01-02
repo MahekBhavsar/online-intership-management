@@ -7,7 +7,7 @@ import { StaffLogin } from "./staff-login/staff-login";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Dashboard, Interview,  StaffLogin],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
