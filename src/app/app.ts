@@ -1,26 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Firestore } from '@angular/fire/firestore';
 import { RouterOutlet } from '@angular/router';
+import { Dashboard } from './users/dashboard/dashboard';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  // 2. Add it to the imports array
-  imports: [CommonModule, RouterOutlet],
+  imports: [RouterOutlet, Dashboard],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit {
-  private firestore = inject(Firestore);
+export class App {
 
-  connectionStatus = signal('Connecting...');
-  isSuccess = signal(false);
-
-  ngOnInit() {
-    if (this.firestore) {
-      this.connectionStatus.set('Firebase Connection Successful! ✅');
-      this.isSuccess.set(true);
-    }
-  }
 }

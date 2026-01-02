@@ -3,7 +3,7 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": "91239b13-a26c-47e2-bcbe-342146517ae7"
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -26,7 +26,11 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/bootstrap/bootstrap.min.css"
+            ],
+            "scripts": [
+              "src/assets/bootstrap/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
