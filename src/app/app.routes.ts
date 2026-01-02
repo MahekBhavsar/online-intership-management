@@ -32,12 +32,7 @@ export const routes: Routes = [
         path: 'admin/managed-staff',
         component: ManagedStaff
     },
-    {
-        path: '',
-        redirectTo: 'user/dashboard',
-        pathMatch: "full"
-
-    },
+  
 
     { path: "", redirectTo: "dashboard", pathMatch: "full" }
 
