@@ -19,11 +19,15 @@ import {
 } from '@angular/fire/firestore';
 import { Observable, from, map } from 'rxjs';
 import { FirebaseCollections } from '../firebase-service/firebase-enums';
+import { RegistrationUserData } from '../Interfaces/application';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService {
+  addApplication(formData: RegistrationUserData) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private readonly firestore: Firestore) {}
 
   public getCollection<T extends DocumentData>(

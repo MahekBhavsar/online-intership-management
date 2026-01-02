@@ -32,6 +32,12 @@ export const routes: Routes = [
         path: 'admin/managed-staff',
         component: ManagedStaff
     },
+    {
+        path: '',
+        redirectTo: 'user/registration',
+        pathMatch: "full"
+
+    },
   
 
     { path: "", redirectTo: "dashboard", pathMatch: "full" }
