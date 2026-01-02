@@ -26,7 +26,11 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/bootstrap/bootstrap.min.css"
+            ],
+            "scripts": [
+              "src/assets/bootstrap/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
