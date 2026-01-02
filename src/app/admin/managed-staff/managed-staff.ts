@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs'; // Import Observable
@@ -19,10 +19,8 @@ export class ManagedStaff implements OnInit {
   // 1. Change to an Observable
   staffList$!: Observable<Staff[]>; 
 
-  constructor(
-    private fb: FormBuilder,
-    private firebaseService: FirebaseService
-  ) {}
+  private fb = inject(FormBuilder);
+  private firebaseService = inject(FirebaseService);
 
   ngOnInit(): void {
     this.initForm();
