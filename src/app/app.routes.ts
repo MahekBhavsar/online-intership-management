@@ -1,12 +1,36 @@
 import { Routes } from '@angular/router';
-import { Login } from './admin/login/login';
 import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { Dashboard } from './users/dashboard/dashboard';
-
+import { ManagedPIntershiprogram } from './admin/managed-intership-program/managed-intership-program';
+import { ManagedCourse } from './admin/managed-course/managed-course';
+import { ManagedStaff } from './admin/managed-staff/managed-staff';
 
 export const routes: Routes = [
-    { path: 'login', component: Login },
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'admin-dashboard', component: AdminDashboard },
-    { path: 'dashboard', component: Dashboard }
+    {
+        path: 'admin/dashboard',
+        component: AdminDashboard
+    },
+    {
+        path: 'user/dashboard',
+        component: Dashboard
+    },
+    {
+        path: 'admin/managed-intership',
+        component: ManagedPIntershiprogram 
+    },
+    {
+        path: 'admin/managed-course',
+        component: ManagedCourse
+    },
+    {
+        path: 'admin/managed-staff',
+        component: ManagedStaff
+    },
+    {
+        path: '',
+        redirectTo: 'user/dashboard',
+        pathMatch: "full"
+
+    }
+
 ];
