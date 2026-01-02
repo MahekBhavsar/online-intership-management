@@ -1,0 +1,53 @@
+<div class="container mt-4">
+  <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+      <h5 class="fw-bold mb-3">Add Course</h5>
+      <form [formGroup]="courseForm" (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label class="form-label">Course Name</label>
+          <input type="text" class="form-control" formControlName="courseName" placeholder="Enter course name" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Assign Staff</label>
+          <select class="form-select" formControlName="staffId">
+            <option value="">Select Staff</option>
+            @for (s of (staffList$ | async); track s.staffId) {
+              <option [value]="s.staffId">{{ s.staffName }}</option>
+            }
+          </select>
+        </div>
+
+        <button class="btn btn-primary w-100" type="submit" [disabled]="courseForm.invalid">
+          Save Course
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+      <h5 class="fw-bold mb-3">Managed Courses</h5>
+      <table class="table table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Course Name</th>
+            <th>Assigned Staff</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (c of (courses$ | async); track c.courseName) {
+            <tr>
+              <td>{{ c.courseName }}</td>
+              <td>{{ c.assignedStaffName }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="2" class="text-center">No courses found in database.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
