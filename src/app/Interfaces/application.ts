@@ -10,4 +10,5 @@ export interface RegistrationUserData {
   gender: string | null;
   cv: string | null;
   address: string | null;
+  status: 'Pending' | 'Accepted' | 'Rejected';
 }

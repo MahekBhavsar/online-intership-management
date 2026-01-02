@@ -1,8 +1,9 @@
 export enum FirebaseCollections {
     User = 'user',
     Staff = 'staff',
-    Application ='application',
-    Course='course',
-    Intership_program='intership_program'
+    Application = 'application',
+    Course = 'course',
+    Intership_program = 'intership_program',
+    StaffTimetable = 'staff_timetable'
 
 }

@@ -11,6 +11,7 @@ import { StaffLogin } from './staff-login/staff-login';
 import { Interview } from './interview/interview';
 import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
+import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
 
 export const routes: Routes = [
     { path: "dashboard", component: Dashboard },
@@ -21,7 +22,7 @@ export const routes: Routes = [
         path: 'admin/dashboard',
         component: AdminDashboard
     },
-    
+
     {
         path: 'admin/managed-intership',
         component: ManagedPIntershiprogram
@@ -46,9 +47,11 @@ export const routes: Routes = [
         path: '',
         redirectTo: 'user/dashboard',
         pathMatch: "full"
-
     },
-  
+    {
+        path: 'admin/staff-timetable',
+        component: StaffTimetable
+    },
 
     { path: "", redirectTo: "dashboard", pathMatch: "full" }
 

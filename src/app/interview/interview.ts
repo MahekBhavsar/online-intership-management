@@ -1,54 +1,80 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-
-interface User {
-  name: string;
-  status: 'Pending' | 'Accepted' | 'Rejected';
-}
+import { FirebaseService } from '../firebase-service/firebase-service';
+import { FirebaseCollections } from '../firebase-service/firebase-enums';
+import { RegistrationUserData } from '../Interfaces/application';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-interview',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './interview.html',
-  styleUrl: './interview.css',
+  styleUrls: ['./interview.css'],
 })
-export class Interview {
-  users: User[] = [
-    { name: 'Rahul Sharma', status: 'Pending' },
-    { name: 'Priya Patel', status: 'Pending' },
-    { name: 'Aman Verma', status: 'Pending' }
-  ];
+export class Interview implements OnInit {
 
-  acceptUser(user: User): void {
+  users: (RegistrationUserData & { id: string })[] = [];
+
+  constructor(private firebaseService: FirebaseService) {}
+
+  async ngOnInit() {
+    await this.loadApplications();
+  }
+
+  // 🔹 GET applications from Firebase (NO subscribe)
+  async loadApplications() {
+    const data = await firstValueFrom(
+      this.firebaseService.getCollection<RegistrationUserData>(
+        FirebaseCollections.Application
+      )
+    );
+
+    this.users = data as any;
+  }
+
+  // 🔹 ACCEPT USER
+  async acceptUser(user: RegistrationUserData & { id: string }) {
+    await this.firebaseService.updateDocument(
+      FirebaseCollections.Application,
+      user.id,
+      { status: 'Accepted' }
+    );
+
+    // 🔹 Email simulation (INTERVIEW ANSWER READY)
+    console.log(`
+      EMAIL SENT
+      To: ${user.email}
+      Subject: Interview Selected
+
+      Hello ${user.name},
+      You are selected for interview.
+
+      Login Credentials:
+      Email: ${user.email}
+      Password: TEMP@123
+    `);
+
     user.status = 'Accepted';
   }
 
-  rejectUser(user: User): void {
+  // 🔹 REJECT USER
+  async rejectUser(user: RegistrationUserData & { id: string }) {
+    await this.firebaseService.updateDocument(
+      FirebaseCollections.Application,
+      user.id,
+      { status: 'Rejected' }
+    );
+
+    console.log(`
+      EMAIL SENT
+      To: ${user.email}
+      Subject: Interview Result
+
+      Hello ${user.name},
+      We regret to inform you that you are rejected.
+    `);
+
     user.status = 'Rejected';
   }
 }
-// users: User[] = [];
-
-//   constructor(private userService: UserService) {}
-
-//   ngOnInit(): void {
-//     // User data coming from another module
-//     this.users = this.userService.getUsers();
-//   }
-
-//   acceptUser(user: User): void {
-//     this.userService.updateUserStatus(user, 'Accepted');
-//   }
-
-//   rejectUser(user: User): void {
-//     this.userService.updateUserStatus(user, 'Rejected');
-//   }}
-// // DO NOT MODIFY – already created by user module
-// @Injectable({ providedIn: 'root' })
-// export class UserService {
-//   getUsers(): User[] {
-//     return [];
-//   }
-
-//   updateUserStatus(user: User, status: string) {}
-// }
