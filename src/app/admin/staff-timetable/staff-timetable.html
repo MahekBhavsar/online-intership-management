@@ -1,1 +1,104 @@
-<p>staff-timetable works!</p>
+<div class="container-fluid p-3">
+  <div class="card bg-dark text-white mb-4 border-0 shadow">
+    <div class="card-body">
+      <div class="row align-items-end g-3">
+        <div class="col-md-4">
+          <label class="small text-info fw-bold">Select Staff Member</label>
+          <select class="form-select" [ngModel]="selectedStaffId" (ngModelChange)="onStaffChange($event)">
+            <option value="" disabled selected>-- Choose Staff --</option>
+            @for (staff of staffList(); track staff.staffId) {
+              <option [value]="staff.staffId">{{ staff.staffName }} ({{ staff.staffId }})</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <label class="small">Work Start</label>
+          <input type="time" class="form-control" [(ngModel)]="adminStartTime" />
+        </div>
+
+        <div class="col-md-2">
+          <label class="small">Work End</label>
+          <input type="time" class="form-control" [(ngModel)]="adminEndTime" />
+        </div>
+
+        <div class="col-md-4">
+          <button class="btn btn-warning w-100 fw-bold" (click)="generateFullWeek()" [disabled]="isLoading || !selectedStaffId">
+            {{ isLoading ? 'Processing...' : 'Generate Whole Week' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (!selectedStaffId) {
+    <div class="text-center py-5">
+      <h4 class="text-muted">Please select a staff member to view the timetable.</h4>
+    </div>
+  } @else {
+    <div class="row row-cols-1 row-cols-md-5 g-2">
+      @for (day of daysOfWeek; track day) {
+        <div class="col">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-header bg-primary text-white text-center py-1">
+              <small class="fw-bold">{{ day }}</small>
+            </div>
+            <div class="card-body p-0">
+              <table class="table table-sm mb-0">
+                <tbody>
+                  @for (entry of timetableEntries(); track entry.id) {
+                    @if (entry.day === day) {
+                      <tr (click)="openEditModal(entry)" style="cursor: pointer;">
+                        <td [class.table-success]="entry.slotType === 'free'" class="ps-2 py-2 border-bottom">
+                          <div class="fw-bold small">{{ entry.startTime }} - {{ entry.endTime }}</div>
+                          <div class="text-muted small" style="font-size: 10px;">
+                            {{ entry.subject }} <i class="bi bi-pencil ms-1 text-primary"></i>
+                          </div>
+                        </td>
+                      </tr>
+                    }
+                  } @empty {
+                    <tr><td class="text-center py-5 text-muted small">No slots generated.</td></tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+@if (selectedEntry) {
+  <div class="modal-backdrop fade show"></div>
+  <div class="modal d-block" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">{{ selectedEntry.day }} ({{ selectedEntry.startTime }})</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="selectedEntry = null"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Slot Type</label>
+            <select class="form-select" [(ngModel)]="selectedEntry.slotType">
+              <option value="busy">Staff Work (Busy)</option>
+              <option value="free">Interview / Free</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">Subject / Activity Name</label>
+            <input type="text" class="form-control" [(ngModel)]="selectedEntry.subject" placeholder="e.g. Maths Class">
+          </div>
+        </div>
+        <div class="modal-footer bg-light">
+          <button class="btn btn-outline-secondary" (click)="selectedEntry = null">Cancel</button>
+          <button class="btn btn-primary px-4" (click)="saveEdit()" [disabled]="isLoading">
+            {{ isLoading ? 'Saving...' : 'Save Changes' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
