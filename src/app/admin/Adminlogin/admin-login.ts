@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-admin-login',
   imports: [ReactiveFormsModule,RouterLink],
-  templateUrl: './login.html',
-  styleUrl: './login.css',
+  templateUrl: './admin-login.html',
+  styleUrl: './admin-login.css',
 })
-export class Login {
+export class AdminLogin {
 
   loginForm: FormGroup;
   errorMsg = '';
