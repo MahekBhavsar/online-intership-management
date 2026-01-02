@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { addDoc, collection, Firestore } from 'firebase/firestore';
 interface registrationUser {
   name: FormControl<string | null>;
   email: FormControl<string | null>;
@@ -18,9 +19,12 @@ interface registrationUser {
   selector: 'app-registration',
   imports: [ReactiveFormsModule],
   templateUrl: './registration.html',
+  standalone:true,
   styleUrl: './registration.css',
 })
 export class Registration {
+
+  private firestore: Firestore = inject(Firestore);
   registerForm = new FormGroup<registrationUser>({
     name: new FormControl(null, [Validators.required]),
     contact: new FormControl(null, [Validators.required]),
@@ -34,7 +38,26 @@ export class Registration {
     address: new FormControl(null, [Validators.required]),
     email: new FormControl(null, [Validators.required]),
   })
-  onSubmit() {
-    console.log("Submit");
+  isLoading = false;
+  statusMessage = '';
+
+  async onSubmit() {
+    if (this.registerForm.valid) {
+      this.isLoading = true;
+      try {
+        const regRef = collection(this.firestore, 'internship-registrations');
+        await addDoc(regRef, this.registerForm.value); // ✅ works now
+        this.statusMessage = 'Registration submitted successfully!';
+        this.registerForm.reset();
+      } catch (error) {
+        console.error(error);
+        this.statusMessage = 'Error submitting registration.';
+      } finally {
+        this.isLoading = false;
+      }
+    } else {
+      this.statusMessage = 'Please fill all required fields.';
+    }
   }
+
 }
