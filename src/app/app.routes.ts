@@ -7,13 +7,10 @@ import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { ManagedPIntershiprogram } from './admin/managed-intership-program/managed-intership-program';
 import { ManagedCourse } from './admin/managed-course/managed-course';
 import { ManagedStaff } from './admin/managed-staff/managed-staff';
-<<<<<<< HEAD
 import { StaffLogin } from './staff-login/staff-login';
 import { Interview } from './interview/interview';
-=======
 import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
->>>>>>> 278a7a24e5589207fa07d8c2034373f036e17751
 
 export const routes: Routes = [
     { path: "dashboard", component: Dashboard },
@@ -37,8 +34,6 @@ export const routes: Routes = [
         path: 'admin/managed-staff',
         component: ManagedStaff
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
     {
         path:'staff-login',
         component:StaffLogin
@@ -53,17 +48,7 @@ export const routes: Routes = [
         pathMatch: "full"
 
     },
-=======
-=======
-    {
-        path: '',
-        redirectTo: 'user/registration',
-        pathMatch: "full"
-
-    },
->>>>>>> 97a09cfb53452becf348b79603ce5da46777539a
   
->>>>>>> 278a7a24e5589207fa07d8c2034373f036e17751
 
     { path: "", redirectTo: "dashboard", pathMatch: "full" }
 
