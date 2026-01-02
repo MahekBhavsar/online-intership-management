@@ -10,6 +10,7 @@ import { ManagedStaff } from './admin/managed-staff/managed-staff';
 import { ManageApplication } from './admin/manage-application/manage-application';
 import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
+import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
 
 export const routes: Routes = [
     { path: "dashboard", component: Dashboard },
@@ -20,10 +21,10 @@ export const routes: Routes = [
         path: 'admin/dashboard',
         component: AdminDashboard
     },
-    
+
     {
-        path:'admin/manage-application',
-        component:ManageApplication
+        path: 'admin/manage-application',
+        component: ManageApplication
     },
     {
         path: 'admin/managed-intership',
@@ -38,12 +39,9 @@ export const routes: Routes = [
         component: ManagedStaff
     },
     {
-        path: '',
-        redirectTo: 'user/registration',
-        pathMatch: "full"
-
+        path: 'admin/staff-timetable',
+        component: StaffTimetable
     },
-  
 
     { path: "", redirectTo: "dashboard", pathMatch: "full" }
 
