@@ -7,6 +7,7 @@ import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { ManagedPIntershiprogram } from './admin/managed-intership-program/managed-intership-program';
 import { ManagedCourse } from './admin/managed-course/managed-course';
 import { ManagedStaff } from './admin/managed-staff/managed-staff';
+import { ManageApplication } from './admin/manage-application/manage-application';
 import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
 import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
@@ -21,6 +22,10 @@ export const routes: Routes = [
         component: AdminDashboard
     },
 
+    {
+        path: 'admin/manage-application',
+        component: ManageApplication
+    },
     {
         path: 'admin/managed-intership',
         component: ManagedPIntershiprogram
