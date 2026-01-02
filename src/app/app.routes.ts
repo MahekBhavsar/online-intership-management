@@ -38,6 +38,7 @@ export const routes: Routes = [
         component: ManagedStaff
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
     {
         path:'staff-login',
         component:StaffLogin
@@ -53,6 +54,14 @@ export const routes: Routes = [
 
     },
 =======
+=======
+    {
+        path: '',
+        redirectTo: 'user/registration',
+        pathMatch: "full"
+
+    },
+>>>>>>> 97a09cfb53452becf348b79603ce5da46777539a
   
 >>>>>>> 278a7a24e5589207fa07d8c2034373f036e17751
 
