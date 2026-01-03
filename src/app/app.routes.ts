@@ -1,25 +1,27 @@
 import { Routes } from '@angular/router';
-import { Dashboard } from './users/dashboard/dashboard';
-import { Navbar } from './users/navbar/navbar';
-import { Footer } from './users/footer/footer';
-import { Header } from './users/header/header';
 import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
-import { ManagedPIntershiprogram } from './admin/managed-intership-program/managed-intership-program';
+import { ManageApplication } from './admin/manage-application/manage-application';
 import { ManagedCourse } from './admin/managed-course/managed-course';
+import { ManagedPIntershiprogram } from './admin/managed-intership-program/managed-intership-program';
 import { ManagedStaff } from './admin/managed-staff/managed-staff';
 import { ManageApplication } from './admin/manage-application/manage-application';
 import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
 
 import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
+import { Dashboard } from './users/dashboard/dashboard';
+import { Footer } from './users/footer/footer';
+import { Header } from './users/header/header';
+import { Navbar } from './users/navbar/navbar';
 import { Registration } from './users/registration/registration';
 
+
 export const routes: Routes = [
-    { path: "dashboard", component: Dashboard },
-    { path: "navbar", component: Navbar },
-    { path: "header", component: Header },
-    { path: "footer", component: Footer },
-    {path:"registration",component:Registration},
+    { path: "users/dashboard", component: Dashboard },
+    { path: "users/navbar", component: Navbar },
+    { path: "users/header", component: Header },
+    { path: "users/footer", component: Footer },
+    { path: "users/registration", component: Registration },
     {
         path: 'admin/dashboard',
         component: AdminDashboard
@@ -45,14 +47,6 @@ export const routes: Routes = [
         path: 'admin/staff-timetable',
         component: StaffTimetable
     },
-    {
-
-    
-        path: '',
-        redirectTo: 'user/registration',
-        pathMatch: "full"
-
-    },
   {
         path: 'users/registration', component: Registration
     },
@@ -63,6 +57,6 @@ export const routes: Routes = [
         component: StaffTimetable
     },
 
-    { path: "", redirectTo: "dashboard", pathMatch: "full" }
+    { path: "", redirectTo: "users/dashboard", pathMatch: "full" }
 
 ];
