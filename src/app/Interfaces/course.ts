@@ -1,7 +1,8 @@
 export interface Course {
-  id?: string;               // Firestore document id
-  courseName: string;        // Only course name entered by Admin
-  assignedStaffId: string;   // Staff UID
-  assignedStaffName: string; // Staff Name (for display)
+  id?: string;
+  courseName: string;
+  duration: string;          // 👈 ONLY ONE DURATION
+  assignedStaffId: string;
+  assignedStaffName: string;
   createdAt: Date;
 }
