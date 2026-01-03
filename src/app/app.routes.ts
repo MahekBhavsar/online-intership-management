@@ -10,7 +10,7 @@ import { ManagedStaff } from './admin/managed-staff/managed-staff';
 import { ManageApplication } from './admin/manage-application/manage-application';
 import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
-import { Registration } from './users/registration/registration';
+
 import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
 import { Registration } from './users/registration/registration';
 
@@ -42,6 +42,18 @@ export const routes: Routes = [
         component: ManagedStaff
     },
     {
+        path: 'admin/staff-timetable',
+        component: StaffTimetable
+    },
+    {
+
+    
+        path: '',
+        redirectTo: 'user/registration',
+        pathMatch: "full"
+
+    },
+  {
         path: 'users/registration', component: Registration
     },
     {
