@@ -5,5 +5,5 @@ export enum FirebaseCollections {
     Course = 'course',
     Intership_program = 'intership_program',
     StaffTimetable = 'staff_timetable'
-
+    
 }

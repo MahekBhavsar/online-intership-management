@@ -4,15 +4,16 @@ import { ManageApplication } from './admin/manage-application/manage-application
 import { ManagedCourse } from './admin/managed-course/managed-course';
 import { ManagedPIntershiprogram } from './admin/managed-intership-program/managed-intership-program';
 import { ManagedStaff } from './admin/managed-staff/managed-staff';
+import { Login } from './users/login/login';
+import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
 import { Dashboard } from './users/dashboard/dashboard';
 import { Footer } from './users/footer/footer';
 import { Header } from './users/header/header';
-import { Login } from './users/login/login';
 import { Navbar } from './users/navbar/navbar';
-import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
 import { Registration } from './users/registration/registration';
 import { PrivacyPolicy } from './users/privacy-policy/privacy-policy';
 import { TermsAndCondition } from './users/terms-and-condition/terms-and-condition';
+
 
 export const routes: Routes = [
     { path: "dashboard", component: Dashboard },
@@ -45,6 +46,6 @@ export const routes: Routes = [
 
     { path: 'admin/staff-timetable', component: StaffTimetable },
 
-    { path: "", redirectTo: "dashboard", pathMatch: "full" }
+    { path: "", redirectTo: "users/dashboard", pathMatch: "full" }
 
 ];

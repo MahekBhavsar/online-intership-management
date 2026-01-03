@@ -1,40 +1,42 @@
 <div class="container mt-4">
   <div class="card shadow-sm mb-4 border-0">
     <div class="card-body">
-      <h5 class="fw-bold mb-3">Add Internship Program</h5>
+      <h5 class="fw-bold mb-3 text-primary">Create Internship Program</h5>
 
       <form [formGroup]="programForm" (ngSubmit)="submit()">
-        <div class="mb-3">
-          <label class="form-label">Program Name</label>
-          <input class="form-control" formControlName="programName" />
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">Program Name</label>
+            <input class="form-control" formControlName="programName" placeholder="e.g. Summer Intake 2026" />
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">Course (Sets Defaults)</label>
+            <select class="select form-select" formControlName="courseId">
+              <option value="">-- Select Course --</option>
+              @for (c of (courses$ | async); track c.id) {
+                <option [value]="c.id">{{ c.courseName }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">Duration</label>
+            <input class="form-control" formControlName="duration" />
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">Assigned Staff</label>
+            <select class="form-select" formControlName="staffId">
+              <option value="">-- Select Staff --</option>
+              @for (s of (staffList$ | async); track s.staffId) {
+                <option [value]="s.staffId">{{ s.staffName }}</option>
+              }
+            </select>
+          </div>
         </div>
 
-        <div class="mb-3">
-          <label class="form-label">Course</label>
-          <select class="form-select" formControlName="courseId">
-            <option value="">Select Course</option>
-            @for (c of (courses$ | async); track c.id) {
-            <option [value]="c.id">{{ c.courseName }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Duration</label>
-          <input class="form-control" placeholder="e.g. 6 Months" formControlName="duration" />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Assign Staff</label>
-          <select class="form-select" formControlName="staffId">
-            <option value="">Select Staff</option>
-            @for (s of (staffList$ | async); track s.staffId) {
-            <option [value]="s.staffId">{{ s.staffName }}</option>
-            }
-          </select>
-        </div>
-
-        <button class="btn btn-primary w-100" type="submit" [disabled]="programForm.invalid">
+        <button class="btn btn-primary px-4" type="submit" [disabled]="programForm.invalid">
           Add Program
         </button>
       </form>
@@ -43,32 +45,52 @@
 
   <div class="card shadow-sm border-0">
     <div class="card-body">
-      <h5 class="fw-bold mb-3">Internship Programs</h5>
+      <h5 class="fw-bold mb-3">Managed Programs</h5>
 
-      <table class="table table-hover">
-        <thead class="table-light">
-          <tr>
-            <th>Program</th>
-            <th>Course</th>
-            <th>Duration</th>
-            <th>Assigned Staff</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (p of (programs$ | async); track p.programName) {
-          <tr>
-            <td>{{ p.programName }}</td>
-            <td>{{ p.courseName }}</td>
-            <td>{{ p.duration }}</td>
-            <td>{{ p.assignedStaffName }}</td>
-          </tr>
-          } @empty {
-          <tr>
-            <td colspan="4" class="text-center">No programs available.</td>
-          </tr>
-          }
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Program Details</th>
+              <th>Course</th>
+              <th>Staff</th>
+              <th>Status</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (p of (programs$ | async); track p.id) {
+              <tr [ngClass]="{'opacity-50': !p.isActive}">
+                <td>
+                  <div class="fw-bold">{{ p.programName }}</div>
+                  <small class="text-muted">{{ p.duration }}</small>
+                </td>
+                <td>{{ p.courseName }}</td>
+                <td>{{ p.assignedStaffName }}</td>
+                <td>
+                  @if (p.isActive) {
+                    <span class="badge bg-success-subtle text-success">Active</span>
+                  } @else {
+                    <span class="badge bg-danger-subtle text-danger">Disabled</span>
+                  }
+                </td>
+                <td class="text-center">
+                  <button 
+                    (click)="toggleStatus(p)" 
+                    class="btn btn-sm" 
+                    [ngClass]="p.isActive ? 'btn-outline-danger' : 'btn-success'">
+                    {{ p.isActive ? 'Disable' : 'Enable' }}
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="5" class="text-center py-4 text-muted">No programs found.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

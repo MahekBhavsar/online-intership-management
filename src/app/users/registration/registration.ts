@@ -46,11 +46,11 @@ export class Registration {
     try {
       // ✅ CORRECT CALL
       await this.firebaseService.addDocument(
-        FirebaseCollections.Application,
+        FirebaseCollections.User,
         data
       );
 
-      alert('Application submitted successfully ✅');
+      alert('User submitted successfully ✅');
       this.registerForm.reset();
 
     } catch (error) {
