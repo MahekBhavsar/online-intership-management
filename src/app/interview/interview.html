@@ -1,6 +1,11 @@
 <div class="container mt-4">
   <h3 class="text-center mb-4">Interview Applications</h3>
 
+  <div class="alert alert-info text-center" *ngIf="!interviewEnded">
+    Interview is still in progress.  
+    Accept / Reject will be enabled after interview ends.
+  </div>
+
   <table class="table table-bordered text-center">
     <thead class="table-dark">
       <tr>
@@ -15,19 +20,30 @@
       <tr *ngFor="let user of users">
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
-        <td>{{ user.status }}</td>
+        <td>
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-warning': user.status === 'Pending',
+              'bg-success': user.status === 'Accepted',
+              'bg-danger': user.status === 'Rejected'
+            }">
+            {{ user.status }}
+          </span>
+        </td>
+
         <td>
           <button
             class="btn btn-success btn-sm me-2"
             (click)="acceptUser(user)"
-            [disabled]="user.status !== 'Pending'">
+            [disabled]="user.status !== 'Pending' || !interviewEnded">
             Accept
           </button>
 
           <button
             class="btn btn-danger btn-sm"
             (click)="rejectUser(user)"
-            [disabled]="user.status !== 'Pending'">
+            [disabled]="user.status !== 'Pending' || !interviewEnded">
             Reject
           </button>
         </td>

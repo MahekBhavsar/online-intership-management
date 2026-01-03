@@ -15,22 +15,50 @@ import { firstValueFrom } from 'rxjs';
 export class Interview implements OnInit {
 
   users: (RegistrationUserData & { id: string })[] = [];
+  interviewEnded = false;
 
   constructor(private firebaseService: FirebaseService) {}
 
   async ngOnInit() {
     await this.loadApplications();
+    await this.checkInterviewTime();
   }
 
-  // 🔹 GET applications from Firebase (NO subscribe)
+  // 🔹 Load interview applications
   async loadApplications() {
     const data = await firstValueFrom(
       this.firebaseService.getCollection<RegistrationUserData>(
         FirebaseCollections.Application
       )
     );
-
     this.users = data as any;
+  }
+
+  // 🔹 Check interview time from Admin timetable
+  async checkInterviewTime() {
+    const slots = await firstValueFrom(
+      this.firebaseService.getCollection<any>(
+        FirebaseCollections.StaffTimetable
+      )
+    );
+
+    // Interview slot find karo
+    const interviewSlot = slots.find(
+      s => s.subject === 'Interview'
+    );
+
+    if (!interviewSlot) {
+      this.interviewEnded = false;
+      return;
+    }
+
+    const now = new Date();
+
+    const [endHour, endMin] = interviewSlot.endTime.split(':').map(Number);
+    const interviewEnd = new Date();
+    interviewEnd.setHours(endHour, endMin + 5, 0, 0);
+
+    this.interviewEnded = now >= interviewEnd;
   }
 
   // 🔹 ACCEPT USER
@@ -41,18 +69,17 @@ export class Interview implements OnInit {
       { status: 'Accepted' }
     );
 
-    // 🔹 Email simulation (INTERVIEW ANSWER READY)
     console.log(`
-      EMAIL SENT
-      To: ${user.email}
-      Subject: Interview Selected
+EMAIL SENT
+To: ${user.email}
+Subject: Interview Selected
 
-      Hello ${user.name},
-      You are selected for interview.
+Hello ${user.name},
+You are selected for interview.
 
-      Login Credentials:
-      Email: ${user.email}
-      Password: TEMP@123
+Login Credentials:
+Email: ${user.email}
+Password: TEMP@123
     `);
 
     user.status = 'Accepted';
@@ -67,12 +94,12 @@ export class Interview implements OnInit {
     );
 
     console.log(`
-      EMAIL SENT
-      To: ${user.email}
-      Subject: Interview Result
+EMAIL SENT
+To: ${user.email}
+Subject: Interview Result
 
-      Hello ${user.name},
-      We regret to inform you that you are rejected.
+Hello ${user.name},
+We regret to inform you that you are rejected.
     `);
 
     user.status = 'Rejected';

@@ -1,3 +1,11 @@
+export interface Application {
+  id?: string;
+  name: string;       // ID of the user who applied
+  email: string;     // Course selected
+  status: 'pending' | 'approved' | 'rejected';
+  assignedStaffId?: string; // Staff assigned
+  // appliedAt: any;       // Timestamp
+}
 export interface RegistrationUserData {
   name: string | null;
   email: string | null;

@@ -14,7 +14,7 @@
           <select class="form-select" formControlName="courseId">
             <option value="">Select Course</option>
             @for (c of (courses$ | async); track c.id) {
-              <option [value]="c.id">{{ c.courseName }}</option>
+            <option [value]="c.id">{{ c.courseName }}</option>
             }
           </select>
         </div>
@@ -29,7 +29,7 @@
           <select class="form-select" formControlName="staffId">
             <option value="">Select Staff</option>
             @for (s of (staffList$ | async); track s.staffId) {
-              <option [value]="s.staffId">{{ s.staffName }}</option>
+            <option [value]="s.staffId">{{ s.staffName }}</option>
             }
           </select>
         </div>
@@ -56,16 +56,16 @@
         </thead>
         <tbody>
           @for (p of (programs$ | async); track p.programName) {
-            <tr>
-              <td>{{ p.programName }}</td>
-              <td>{{ p.courseName }}</td>
-              <td>{{ p.duration }}</td>
-              <td>{{ p.assignedStaffName }}</td>
-            </tr>
+          <tr>
+            <td>{{ p.programName }}</td>
+            <td>{{ p.courseName }}</td>
+            <td>{{ p.duration }}</td>
+            <td>{{ p.assignedStaffName }}</td>
+          </tr>
           } @empty {
-            <tr>
-              <td colspan="4" class="text-center">No programs available.</td>
-            </tr>
+          <tr>
+            <td colspan="4" class="text-center">No programs available.</td>
+          </tr>
           }
         </tbody>
       </table>
