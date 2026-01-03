@@ -17,7 +17,7 @@ export const routes: Routes = [
     { path: "users/navbar", component: Navbar },
     { path: "users/header", component: Header },
     { path: "users/footer", component: Footer },
-    {path:"users/registration",component:Registration},
+    { path: "users/registration", component: Registration },
     {
         path: 'admin/dashboard',
         component: AdminDashboard
