@@ -1,148 +1,84 @@
-<div class="container-fluid p-0 d-flex">
+<div class="container-fluid p-0 d-flex vh-100 overflow-hidden">
+  
+  <app-admin-sidebar></app-admin-sidebar>
 
-  <nav class="bg-dark text-white p-3 d-none d-md-block" style="width: 280px; min-height: 100vh;">
-    <div class="d-flex align-items-center mb-4 px-2">
-       <i class="fas fa-rocket text-primary me-2 fs-4"></i>
-       <h3 class="text-primary mb-0 fw-bold">InternFlow</h3>
-    </div>
-    
-    <ul class="nav flex-column gap-2">
-      <li class="nav-item">
-        <a [routerLink]="['/admin/dashboard']" routerLinkActive="bg-primary rounded" class="nav-link text-white">
-          <i class="fas fa-th-large me-2"></i> Dashboard
-        </a>
-      </li>
-      <li class="nav-item">
-        <a [routerLink]="['/admin/managed-staff']" routerLinkActive="bg-primary rounded" class="nav-link text-white">
-          <i class="fas fa-user-shield me-2"></i> Manage Staff
-        </a>
-      </li>
-        <li class="nav-item">
-        <a [routerLink]="['/admin/staff-timetable']" routerLinkActive="bg-primary rounded" class="nav-link text-white">
-          <i class="fas fa-book-open me-2"></i> Manage time-tablr
-        </a>
-      </li>
-      <li class="nav-item">
-        <a [routerLink]="['/admin/managed-course']" routerLinkActive="bg-primary rounded" class="nav-link text-white">
-          <i class="fas fa-book-open me-2"></i> Manage Courses
-        </a>
-      </li>
-      <li class="nav-item">
-        <a [routerLink]="['/admin/managed-intership']" routerLinkActive="bg-primary rounded" class="nav-link text-white">
-          <i class="fas fa-laptop-code me-2"></i> Internship Programs
-        </a>
-      </li>
-      <li class="nav-item mt-auto pt-4 border-top border-secondary">
-        <a href="#" class="nav-link text-danger fw-bold">
-          <i class="fas fa-power-off me-2"></i> Logout
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <div class="flex-grow-1 bg-light overflow-auto d-flex flex-column">
 
-  <div class="flex-grow-1 bg-light">
+    <app-admin-topnav></app-admin-topnav>
 
-    <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm px-4 py-2">
-      <div class="container-fluid">
-        <span class="navbar-brand fw-bold d-md-none">InternFlow</span>
-        
-        <div class="ms-auto d-flex align-items-center gap-3">
-          <div class="text-end d-none d-sm-block">
-            <p class="mb-0 fw-bold small">Admin User</p>
-            <p class="mb-0 text-muted extra-small" style="font-size: 0.75rem;">Super Administrator</p>
-          </div>
-          <div class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-            <i class="fas fa-user"></i>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <div class="p-4">
-      <div class="d-flex justify-content-between align-items-end mb-4">
-        <div>
-          <h2 class="h4 fw-bold mb-1">Internship Overview</h2>
-          <p class="text-muted small mb-0">Welcome back! Here is what's happening today.</p>
-        </div>
-        <div class="text-end">
-          <span class="badge bg-white text-dark border p-2 shadow-sm">
-            <i class="far fa-calendar-alt text-primary me-1"></i> Friday, Jan 02, 2026
-          </span>
-        </div>
-      </div>
-
-      <div class="row g-4 mb-4">
-        <div class="col-12 col-sm-6 col-xl-3">
-          <div class="card border-0 shadow-sm p-3 border-start border-primary border-5 h-100">
-            <div class="text-muted small fw-bold">TOTAL USERS</div>
-            <div class="h2 fw-bold mb-0 text-dark">{{ (totalUsers$ | async) || 0 }}</div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-          <div class="card border-0 shadow-sm p-3 border-start border-success border-5 h-100">
-            <div class="text-muted small fw-bold">TOTAL STAFF</div>
-            <div class="h2 fw-bold mb-0 text-dark">{{ (totalStaff$ | async) || 0 }}</div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-          <div class="card border-0 shadow-sm p-3 border-start border-warning border-5 h-100">
-            <div class="text-muted small fw-bold">PENDING APPS</div>
-            <div class="h2 fw-bold mb-0 text-dark">{{ (pendingApps$ | async) || 0 }}</div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-          <div class="card border-0 shadow-sm p-3 border-start border-info border-5 h-100">
-            <div class="text-muted small fw-bold">PROGRAMS</div>
-            <div class="h2 fw-bold mb-0 text-dark">{{ (totalPrograms$ | async) || 0 }}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card border-0 shadow-sm mt-4">
-        <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
-          <h5 class="mb-0 fw-bold">Recent Intern Applications</h5>
-          <button class="btn btn-sm btn-outline-primary px-3">View All</button>
-        </div>
-        <div class="table-responsive p-3">
-          <table class="table table-hover align-middle">
-            <thead class="table-light">
-              <tr>
-                <th>Candidate Name</th>
-                <th>Role</th>
-                <th>Applied Date</th>
-                <th>Status</th>
-                <th class="text-end">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (app of (recentApplications$ | async); track app.id) {
-                <tr>
-                  <td><strong>{{ app.candidateName }}</strong></td>
-                  <td>{{ app.role }}</td>
-                  <td>{{ app.appliedDate | date:'mediumDate' }}</td>
-                  <td>
-                    <span class="badge p-2" 
-                      [ngClass]="{
-                        'bg-success-subtle text-success': app.status === 'Reviewed',
-                        'bg-warning-subtle text-warning': app.status === 'Pending'
-                      }">
-                      {{ app.status }}
-                    </span>
-                  </td>
-                  <td class="text-end">
-                    <button class="btn btn-sm btn-light border shadow-sm">Review</button>
-                  </td>
-                </tr>
-              } @empty {
-                <tr>
-                  <td colspan="5" class="text-center py-4 text-muted">No applications found.</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
+    <div class="p-4 p-lg-5">
       
-    </div> 
-  </div>
-</div>
+      <div class="row align-items-center mb-5">
+        <div class="col">
+          <h1 class="h3 fw-bold text-dark mb-1">Internship Overview</h1>
+          <p class="text-secondary mb-0">System performance and live application metrics.</p>
+        </div>
+        <div class="col-auto">
+          <div class="bg-white border rounded-pill px-4 py-2 shadow-sm d-flex align-items-center">
+            <div class="bg-primary rounded-circle me-2" style="width: 8px; height: 8px;"></div>
+            <small class="fw-bold text-dark">Friday, Jan 02, 2026</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12 col-sm-6 col-xl-3">
+          <div class="card border-0 shadow-sm rounded-4 p-4 h-100 position-relative overflow-hidden">
+            <div class="position-relative z-1">
+              <div class="text-secondary small fw-bold mb-1">TOTAL USERS</div>
+              <div class="d-flex align-items-baseline">
+                <h2 class="fw-bold mb-0 text-dark">{{ (totalUsers$ | async) || 0 }}</h2>
+                <span class="ms-2 text-success small fw-bold"><i class="fas fa-arrow-up"></i> 12%</span>
+              </div>
+            </div>
+            <i class="fas fa-users position-absolute end-0 bottom-0 p-3 opacity-10 text-primary" style="font-size: 4rem;"></i>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+          <div class="card border-0 shadow-sm rounded-4 p-4 h-100 position-relative overflow-hidden">
+            <div class="position-relative z-1">
+              <div class="text-secondary small fw-bold mb-1">TOTAL STAFF</div>
+              <h2 class="fw-bold mb-0 text-dark">{{ (totalStaff$ | async) || 0 }}</h2>
+            </div>
+            <i class="fas fa-user-shield position-absolute end-0 bottom-0 p-3 opacity-10 text-success" style="font-size: 4rem;"></i>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+          <div class="card border-0 shadow-sm rounded-4 p-4 h-100 position-relative overflow-hidden">
+            <div class="position-relative z-1">
+              <div class="text-secondary small fw-bold mb-1">PENDING APPS</div>
+              <div class="d-flex align-items-baseline">
+                <h2 class="fw-bold mb-0 text-dark">{{ (pendingApps$ | async) || 0 }}</h2>
+                <span class="ms-2 text-warning small fw-bold">Active</span>
+              </div>
+            </div>
+            <i class="fas fa-file-invoice position-absolute end-0 bottom-0 p-3 opacity-10 text-warning" style="font-size: 4rem;"></i>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+          <div class="card border-0 shadow-sm rounded-4 p-4 h-100 position-relative overflow-hidden">
+            <div class="position-relative z-1">
+              <div class="text-secondary small fw-bold mb-1">ACTIVE PROGRAMS</div>
+              <h2 class="fw-bold mb-0 text-dark">{{ (totalPrograms$ | async) || 0 }}</h2>
+            </div>
+            <i class="fas fa-laptop-code position-absolute end-0 bottom-0 p-3 opacity-10 text-info" style="font-size: 4rem;"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5">
+        <h5 class="fw-bold mb-3 text-dark">Quick Actions</h5>
+        <div class="d-flex gap-3">
+            <button [routerLink]="['/admin/managed-intership']" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm transition-all hover-up">
+                <i class="fas fa-plus me-2"></i> New Program
+            </button>
+            <button class="btn btn-white border bg-white px-4 py-2 rounded-pill shadow-sm transition-all hover-up">
+                <i class="fas fa-download me-2 text-muted"></i> Export Reports
+            </button>
+        </div>
+      </div>
+
+    </div> </div> </div>

@@ -6,11 +6,14 @@ import { Observable } from 'rxjs'; // Import Observable
 import { FirebaseService } from '../../firebase-service/firebase-service';
 import { FirebaseCollections } from '../../firebase-service/firebase-enums';
 import { Staff } from '../../Interfaces/staff';
+import { AdminNavbar } from '../admin-topnav/admin-topnav';
+import { AdminLogin } from '../Adminlogin/admin-login';
+import { AdminSidebar } from '../admin-sidebar/admin-sidebar';
 
 @Component({
   selector: 'app-managed-staff',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,AdminNavbar,AdminSidebar],
   templateUrl: './managed-staff.html',
 })
 export class ManagedStaff implements OnInit {

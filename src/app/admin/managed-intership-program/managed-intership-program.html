@@ -1,96 +1,122 @@
-<div class="container mt-4">
-  <div class="card shadow-sm mb-4 border-0">
-    <div class="card-body">
-      <h5 class="fw-bold mb-3 text-primary">Create Internship Program</h5>
+<div class="container-fluid p-0 d-flex vh-100 overflow-hidden">
+  
+  <app-admin-sidebar></app-admin-sidebar>
 
-      <form [formGroup]="programForm" (ngSubmit)="submit()">
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label class="form-label fw-semibold">Program Name</label>
-            <input class="form-control" formControlName="programName" placeholder="e.g. Summer Intake 2026" />
-          </div>
+  <div class="flex-grow-1 bg-light overflow-auto d-flex flex-column">
 
-          <div class="col-md-6 mb-3">
-            <label class="form-label fw-semibold">Course (Sets Defaults)</label>
-            <select class="select form-select" formControlName="courseId">
-              <option value="">-- Select Course --</option>
-              @for (c of (courses$ | async); track c.id) {
-                <option [value]="c.id">{{ c.courseName }}</option>
-              }
-            </select>
-          </div>
+    <app-admin-topnav></app-admin-topnav>
 
-          <div class="col-md-6 mb-3">
-            <label class="form-label fw-semibold">Duration</label>
-            <input class="form-control" formControlName="duration" />
-          </div>
+    <div class="p-4 p-lg-5">
+      
+      <div class="row align-items-center mb-4">
+        <div class="col">
+          <h1 class="h3 fw-bold text-dark mb-1">Internship Programs</h1>
+          <p class="text-secondary mb-0">Manage intake cycles and assigned instructors.</p>
+        </div>
+      </div>
 
-          <div class="col-md-6 mb-3">
-            <label class="form-label fw-semibold">Assigned Staff</label>
-            <select class="form-select" formControlName="staffId">
-              <option value="">-- Select Staff --</option>
-              @for (s of (staffList$ | async); track s.staffId) {
-                <option [value]="s.staffId">{{ s.staffName }}</option>
-              }
-            </select>
+      <div class="card shadow-sm mb-4 border-0 rounded-4">
+        <div class="card-body p-4">
+          <h5 class="fw-bold mb-4 text-primary">Create Internship Program</h5>
+
+          <form [formGroup]="programForm" (ngSubmit)="submit()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold small">Program Name</label>
+                <input class="form-control" formControlName="programName" placeholder="e.g. Summer Intake 2026" />
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold small">Course (Sets Defaults)</label>
+                <select class="select form-select" formControlName="courseId">
+                  <option value="">-- Select Course --</option>
+                  @for (c of (courses$ | async); track c.id) {
+                    <option [value]="c.id">{{ c.courseName }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold small">Duration</label>
+                <input class="form-control" formControlName="duration" />
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold small">Assigned Staff</label>
+                <select class="form-select" formControlName="staffId">
+                  <option value="">-- Select Staff --</option>
+                  @for (s of (staffList$ | async); track s.staffId) {
+                    <option [value]="s.staffId">{{ s.staffName }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn-primary px-5 rounded-pill shadow-sm fw-bold mt-2" type="submit" [disabled]="programForm.invalid">
+              <i class="fas fa-plus me-2"></i> Add Program
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+          <h5 class="fw-bold mb-4">Managed Programs</h5>
+
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light border-0">
+                <tr>
+                  <th class="ps-3">Program Details</th>
+                  <th>Course</th>
+                  <th>Staff</th>
+                  <th>Status</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (p of (programs$ | async); track p.id) {
+                  <tr [ngClass]="{'opacity-50': !p.isActive}">
+                    <td class="ps-3">
+                      <div class="fw-bold text-dark">{{ p.programName }}</div>
+                      <small class="text-muted"><i class="far fa-clock me-1"></i>{{ p.duration }}</small>
+                    </td>
+                    <td>{{ p.courseName }}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <i class="fas fa-user-circle text-secondary me-2"></i>
+                        {{ p.assignedStaffName }}
+                      </div>
+                    </td>
+                    <td>
+                      @if (p.isActive) {
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">Active</span>
+                      } @else {
+                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">Disabled</span>
+                      }
+                    </td>
+                    <td class="text-center">
+                      <button 
+                        (click)="toggleStatus(p)" 
+                        class="btn btn-sm px-3 rounded-pill" 
+                        [ngClass]="p.isActive ? 'btn-outline-danger' : 'btn-success'">
+                        <i class="fas" [ngClass]="p.isActive ? 'fa-ban' : 'fa-check-circle'"></i>
+                        {{ p.isActive ? ' Disable' : ' Enable' }}
+                      </button>
+                    </td>
+                  </tr>
+                } @empty {
+                  <tr>
+                    <td colspan="5" class="text-center py-5 text-muted">
+                      <i class="fas fa-tasks d-block mb-2 fs-2 opacity-25"></i>
+                      No programs found.
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
           </div>
         </div>
-
-        <button class="btn btn-primary px-4" type="submit" [disabled]="programForm.invalid">
-          Add Program
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <div class="card shadow-sm border-0">
-    <div class="card-body">
-      <h5 class="fw-bold mb-3">Managed Programs</h5>
-
-      <div class="table-responsive">
-        <table class="table table-hover align-middle">
-          <thead class="table-light">
-            <tr>
-              <th>Program Details</th>
-              <th>Course</th>
-              <th>Staff</th>
-              <th>Status</th>
-              <th class="text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (p of (programs$ | async); track p.id) {
-              <tr [ngClass]="{'opacity-50': !p.isActive}">
-                <td>
-                  <div class="fw-bold">{{ p.programName }}</div>
-                  <small class="text-muted">{{ p.duration }}</small>
-                </td>
-                <td>{{ p.courseName }}</td>
-                <td>{{ p.assignedStaffName }}</td>
-                <td>
-                  @if (p.isActive) {
-                    <span class="badge bg-success-subtle text-success">Active</span>
-                  } @else {
-                    <span class="badge bg-danger-subtle text-danger">Disabled</span>
-                  }
-                </td>
-                <td class="text-center">
-                  <button 
-                    (click)="toggleStatus(p)" 
-                    class="btn btn-sm" 
-                    [ngClass]="p.isActive ? 'btn-outline-danger' : 'btn-success'">
-                    {{ p.isActive ? 'Disable' : 'Enable' }}
-                  </button>
-                </td>
-              </tr>
-            } @empty {
-              <tr>
-                <td colspan="5" class="text-center py-4 text-muted">No programs found.</td>
-              </tr>
-            }
-          </tbody>
-        </table>
       </div>
-    </div>
-  </div>
-</div>
+
+    </div> </div> </div>

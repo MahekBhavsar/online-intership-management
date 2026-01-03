@@ -7,11 +7,14 @@ import { FirebaseService } from '../../firebase-service/firebase-service';
 import { FirebaseCollections } from '../../firebase-service/firebase-enums';
 import { Course } from '../../Interfaces/course';
 import { Staff } from '../../Interfaces/staff';
+import { AdminLogin } from '../Adminlogin/admin-login';
+import { AdminSidebar } from '../admin-sidebar/admin-sidebar';
+import { AdminNavbar } from '../admin-topnav/admin-topnav';
 
 @Component({
   selector: 'app-managed-course',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,AdminSidebar,AdminNavbar],
   templateUrl: './managed-course.html',
 })
 export class ManagedCourse implements OnInit {

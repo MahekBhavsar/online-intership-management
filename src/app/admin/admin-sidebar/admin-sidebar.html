@@ -1,0 +1,54 @@
+<nav class="bg-dark text-white d-flex flex-column shadow-lg vh-100 border-end border-secondary border-opacity-25" style="width: 230px;">
+  
+  <div class="d-flex align-items-center mb-4 px-3 pt-4">
+    <div class="bg-primary rounded-3 d-flex align-items-center justify-content-center me-2 shadow-sm" style="width: 32px; height: 32px;">
+      <i class="fas fa-rocket text-white small"></i>
+    </div>
+    <span class="h6 mb-0 fw-bold text-uppercase tracking-wider">InternFlow</span>
+  </div>
+
+  <ul class="nav flex-column px-2 gap-1 mb-auto">
+    
+    <li class="nav-item">
+      <a [routerLink]="['/admin/dashboard']" routerLinkActive="bg-primary shadow" class="nav-link text-white d-flex align-items-center rounded-2 py-2 px-3 opacity-75 hover-opacity-100">
+        <div class="text-center" style="width: 24px;"><i class="fas fa-th-large"></i></div>
+        <span class="small ps-2 fw-medium">Dashboard</span>
+      </a>
+    </li>
+    
+    <li class="nav-item">
+      <a [routerLink]="['/admin/managed-staff']" routerLinkActive="bg-primary shadow" class="nav-link text-white d-flex align-items-center rounded-2 py-2 px-3 opacity-75 hover-opacity-100">
+        <div class="text-center" style="width: 24px;"><i class="fas fa-user-shield"></i></div>
+        <span class="small ps-2 fw-medium">Manage Staff</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a [routerLink]="['/admin/staff-timetable']" routerLinkActive="bg-primary shadow" class="nav-link text-white d-flex align-items-center rounded-2 py-2 px-3 opacity-75 hover-opacity-100">
+        <div class="text-center" style="width: 24px;"><i class="fas fa-calendar-alt"></i></div>
+        <span class="small ps-2 fw-medium">Staff Timetable</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a [routerLink]="['/admin/managed-course']" routerLinkActive="bg-primary shadow" class="nav-link text-white d-flex align-items-center rounded-2 py-2 px-3 opacity-75 hover-opacity-100">
+        <div class="text-center" style="width: 24px;"><i class="fas fa-book-open"></i></div>
+        <span class="small ps-2 fw-medium">Courses</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a [routerLink]="['/admin/managed-intership']" routerLinkActive="bg-primary shadow" class="nav-link text-white d-flex align-items-center rounded-2 py-2 px-3 opacity-75 hover-opacity-100">
+        <div class="text-center" style="width: 24px;"><i class="fas fa-laptop-code"></i></div>
+        <span class="small ps-2 fw-medium">Programs</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="p-3 border-top border-secondary border-opacity-25 mt-3">
+    <a href="#" class="nav-link text-danger d-flex align-items-center py-2 px-3 rounded-2">
+      <div class="text-center" style="width: 24px;"><i class="fas fa-power-off"></i></div>
+      <span class="small fw-bold ps-2">Logout</span>
+    </a>
+  </div>
+</nav>
