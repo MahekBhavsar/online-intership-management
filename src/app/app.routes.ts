@@ -10,15 +10,14 @@ import { Footer } from './users/footer/footer';
 import { Header } from './users/header/header';
 import { Navbar } from './users/navbar/navbar';
 import { Registration } from './users/registration/registration';
-import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
-import { Registration } from './users/registration/registration';
+
 
 export const routes: Routes = [
-    { path: "dashboard", component: Dashboard },
-    { path: "navbar", component: Navbar },
-    { path: "header", component: Header },
-    { path: "footer", component: Footer },
-    {path:"registration",component:Registration},
+    { path: "users/dashboard", component: Dashboard },
+    { path: "users/navbar", component: Navbar },
+    { path: "users/header", component: Header },
+    { path: "users/footer", component: Footer },
+    {path:"users/registration",component:Registration},
     {
         path: 'admin/dashboard',
         component: AdminDashboard
@@ -41,16 +40,12 @@ export const routes: Routes = [
         component: ManagedStaff
     },
     {
-        path: 'users/registration',
-        component: Registration
-    },
-    {
 
 
         path: 'admin/staff-timetable',
         component: StaffTimetable
     },
 
-    { path: "", redirectTo: "dashboard", pathMatch: "full" }
+    { path: "", redirectTo: "users/dashboard", pathMatch: "full" }
 
 ];
