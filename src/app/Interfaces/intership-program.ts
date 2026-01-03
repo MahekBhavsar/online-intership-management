@@ -1,4 +1,5 @@
 export interface InternshipProgram {
+  isActive: boolean;
   id?: string;
   programName: string;
   courseName: string;
@@ -6,4 +7,5 @@ export interface InternshipProgram {
   assignedStaffId: string;
   assignedStaffName: string;
   createdAt: Date;
+  isAactive:bigint;
 }
