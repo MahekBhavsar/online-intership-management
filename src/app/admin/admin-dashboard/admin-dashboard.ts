@@ -21,6 +21,7 @@ import { AdminSidebar } from '../admin-sidebar/admin-sidebar';
 })
 export class AdminDashboard implements OnInit {
   // Observables for real-time counts
+  today: Date = new Date();
   totalUsers$!: Observable<number>;
   totalStaff$!: Observable<number>;
   pendingApps$!: Observable<number>;
