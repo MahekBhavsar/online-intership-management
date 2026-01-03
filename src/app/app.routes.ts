@@ -10,6 +10,7 @@ import { ManagedStaff } from './admin/managed-staff/managed-staff';
 import { ManageApplication } from './admin/manage-application/manage-application';
 import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
+import { Registration } from './users/registration/registration';
 import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
 
 export const routes: Routes = [
@@ -39,6 +40,11 @@ export const routes: Routes = [
         component: ManagedStaff
     },
     {
+        path: 'users/registration', component: Registration
+    },
+    {
+
+
         path: 'admin/staff-timetable',
         component: StaffTimetable
     },
