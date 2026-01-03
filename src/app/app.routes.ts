@@ -37,6 +37,15 @@ export const routes: Routes = [
         path: 'admin/staff-timetable',
         component: StaffTimetable
     },
+    {
+
+    
+        path: '',
+        redirectTo: 'user/registration',
+        pathMatch: "full"
+
+    },
+  
 
     { path: "", redirectTo: "dashboard", pathMatch: "full" }
 
