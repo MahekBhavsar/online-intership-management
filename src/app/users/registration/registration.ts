@@ -1,51 +1,61 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirebaseService } from '../../firebase-service/firebase-service';
-import { RegistrationUserData } from '../../Interfaces/application';
+import { FirebaseCollections } from '../../firebase-service/firebase-enums';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './registration.html',
-  styleUrl: './registration.css',
 })
 export class Registration {
 
-  private fire = inject(FirebaseService);
+  registerForm!: FormGroup;
+  private firebaseService = inject(FirebaseService);
 
-  registerForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    contact: new FormControl('', Validators.required),
-    collegename: new FormControl(''),
-    degree: new FormControl('', Validators.required),
-    year: new FormControl('', Validators.required),
-    companyName: new FormControl(''),
-    professionalField: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required),
-    cv: new FormControl(null, Validators.required),
-    address: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-  });
+  constructor() {
+    this.initForm();
+  }
+
+  initForm() {
+    this.registerForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      contact: new FormControl('', Validators.required),
+      collegename: new FormControl('', Validators.required),
+      degree: new FormControl('', Validators.required),
+      year: new FormControl('', Validators.required),
+      companyName: new FormControl(''),
+      professionalField: new FormControl('', Validators.required),
+      gender: new FormControl('', Validators.required),
+      cv: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
+    });
+  }
 
   async onSubmit() {
-  if (this.registerForm.invalid) {
-    this.registerForm.markAllAsTouched();
-    return;
+    if (this.registerForm.invalid) return;
+
+    const data = {
+      ...this.registerForm.value,
+      createdAt: new Date(),
+      status: 'pending'
+    };
+
+    try {
+      // ✅ CORRECT CALL
+      await this.firebaseService.addDocument(
+        FirebaseCollections.Application,
+        data
+      );
+
+      alert('Application submitted successfully ✅');
+      this.registerForm.reset();
+
+    } catch (error) {
+      console.error(error);
+      alert('Something went wrong ❌');
+    }
   }
-
-  try {
-    const formData = this.registerForm.value as RegistrationUserData;
-
-    await this.fire.addApplication(formData);
-
-    alert('Application submitted successfully ✅');
-    this.registerForm.reset();
-
-  } catch (error) {
-    console.error(error);
-    alert('Failed to submit application ❌');
-  }
-}
-
 }
