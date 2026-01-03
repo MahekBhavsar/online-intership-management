@@ -4,7 +4,7 @@ import { ManageApplication } from './admin/manage-application/manage-application
 import { ManagedCourse } from './admin/managed-course/managed-course';
 import { ManagedPIntershiprogram } from './admin/managed-intership-program/managed-intership-program';
 import { ManagedStaff } from './admin/managed-staff/managed-staff';
-import { ManageApplication } from './admin/manage-application/manage-application';
+//import { ManageApplication } from './admin/manage-application/manage-application';
 import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
 
