@@ -7,22 +7,18 @@ import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { ManagedPIntershiprogram } from './admin/managed-intership-program/managed-intership-program';
 import { ManagedCourse } from './admin/managed-course/managed-course';
 import { ManagedStaff } from './admin/managed-staff/managed-staff';
-import { StaffLogin } from './staff-login/staff-login';
-import { Interview } from './interview/interview';
+import { Registration } from './users/registration/registration';
 import { ManageApplication } from './admin/manage-application/manage-application';
 import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
-
-import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
-import { StaffMyTimetable } from './staff-my-timetable/staff-my-timetable';
-import { Registration } from './users/registration/registration';
+import { StaffTimetable } from './staff-timetable/staff-timetable';
+import { StaffLogin } from './staff-login/staff-login';
 
 export const routes: Routes = [
     { path: "dashboard", component: Dashboard },
     { path: "navbar", component: Navbar },
     { path: "header", component: Header },
     { path: "footer", component: Footer },
-    {path:"registration",component:Registration},
     {
         path: 'admin/dashboard',
         component: AdminDashboard
@@ -45,19 +41,6 @@ export const routes: Routes = [
         component: ManagedStaff
     },
     {
-        path:'staff-login',
-        component:StaffLogin
-    },
-    {
-        path:'interview',
-        component:Interview
-    },
-    {
-        path: '',
-        redirectTo: 'user/dashboard',
-        pathMatch: "full"
-    },
-    {
         path: 'users/registration', component: Registration
     },
     {
@@ -65,10 +48,17 @@ export const routes: Routes = [
         component: StaffTimetable
     },
     {
-        path:'staff-my-timetable',
-        component:StaffMyTimetable
+        path:'staff-login',
+        component:StaffLogin
     },
-
-    { path: "", redirectTo: "dashboard", pathMatch: "full" }
-
+    
+    {
+        path:'users/dashboard',
+        component:Dashboard
+    },
+    {
+        path:'',
+        redirectTo:'users/dashboard',
+        pathMatch:'full'
+    }
 ];
