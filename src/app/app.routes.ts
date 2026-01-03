@@ -12,12 +12,14 @@ import { Login } from './users/login/login';
 import { AdminLogin } from './admin/Adminlogin/admin-login';
 import { Registration } from './users/registration/registration';
 import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
+import { Registration } from './users/registration/registration';
 
 export const routes: Routes = [
     { path: "dashboard", component: Dashboard },
     { path: "navbar", component: Navbar },
     { path: "header", component: Header },
     { path: "footer", component: Footer },
+    {path:"registration",component:Registration},
     {
         path: 'admin/dashboard',
         component: AdminDashboard

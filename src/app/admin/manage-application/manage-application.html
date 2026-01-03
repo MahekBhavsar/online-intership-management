@@ -1,68 +1,51 @@
 <div class="container mt-4">
+    <h4 class="mb-3">Application Management</h4>
 
-  <h4 class="mb-3">Application Management</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
 
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Assign Staff</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
 
-      <thead class="table-dark">
-        <tr>
-          <th>User</th>
-          <th>Course</th>
-          <th>Assign Staff</th>
-          <th>Action</th>
-        </tr>
-      </thead>
+            <tbody>
+                @for (app of applications(); track app.id) {
+                <tr>
+                    <td>{{ app.name }}</td>
+                    <td>{{ app.email || '-' }}</td>
 
-      <tbody>
-        @for (app of applications(); track app.id) {
+                    <!-- Assign Staff -->
+                    <td>
+                        <select class="form-select form-select-sm" #staffSelect
+                            (change)="assignStaff(app, staffSelect.value)">
 
-          <tr>
+                            <option value="">Select Staff</option>
 
-            <td>{{ app.userId }}</td>
-            <td>{{ app.courseId }}</td>
+                            @for (staff of staffs; track staff.staffId) {
+                            <option [value]="staff.staffId" [selected]="staff.staffId === app.assignedStaffId">
+                                {{ staff.staffName }}
+                            </option>
+                            }
+                        </select>
+                    </td>
 
-            <!-- Assign Staff -->
-            <td>
-              <select
-                class="form-select form-select-sm"
-                #staffSelect
-                [disabled]="app.status !== 'approved'"
-                (change)="assignStaff(app, staffSelect.value)">
-
-                <option value="">Select Staff</option>
-
-                @for (staff of staffs; track staff.staffId) {
-                  <option
-                    [value]="staff.staffId"
-                    [selected]="staff.staffId === app.assignedStaffId">
-                    {{ staff.staffName }}
-                  </option>
+                    <td>
+                        <button class="btn btn-sm btn-success me-2" (click)="approveApplication(app)">
+                            Approve
+                        </button>
+                        <button class="btn btn-sm btn-danger" (click)="rejectApplication(app)">
+                            Reject
+                        </button>
+                    </td>
+                </tr>
                 }
-              </select>
-            </td>
+            </tbody>
 
-            <td>
-              <button
-                class="btn btn-sm btn-success me-2"
-                (click)="approveApplication(app)"
-                [disabled]="app.status !== 'pending'">
-                Approve
-              </button>
-
-              <button
-                class="btn btn-sm btn-danger"
-                (click)="rejectApplication(app)"
-                [disabled]="app.status !== 'pending'">
-                Reject
-              </button>
-            </td>
-
-          </tr>
-        }
-      </tbody>
-
-    </table>
-  </div>
-
+        </table>
+    </div>
 </div>
