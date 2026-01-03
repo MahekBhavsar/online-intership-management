@@ -7,4 +7,5 @@ export interface InternshipProgram {
   assignedStaffId: string;
   assignedStaffName: string;
   createdAt: Date;
+  isAactive:bigint;
 }
