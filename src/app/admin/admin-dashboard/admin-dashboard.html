@@ -1,5 +1,5 @@
 <div class="container-fluid p-0 d-flex vh-100 overflow-hidden">
-  
+
   <app-admin-sidebar></app-admin-sidebar>
 
   <div class="flex-grow-1 bg-light overflow-auto d-flex flex-column">
@@ -7,7 +7,7 @@
     <app-admin-topnav></app-admin-topnav>
 
     <div class="p-4 p-lg-5">
-      
+
       <div class="row align-items-center mb-5">
         <div class="col">
           <h1 class="h3 fw-bold text-dark mb-1">Internship Overview</h1>
@@ -16,7 +16,7 @@
         <div class="col-auto">
           <div class="bg-white border rounded-pill px-4 py-2 shadow-sm d-flex align-items-center">
             <div class="bg-primary rounded-circle me-2" style="width: 8px; height: 8px;"></div>
-            <small class="fw-bold text-dark">Friday, Jan 02, 2026</small>
+            <small class="fw-bold text-dark">{{ today | date: 'EEEE, MMM dd, yyyy' }}</small>
           </div>
         </div>
       </div>
@@ -31,7 +31,8 @@
                 <span class="ms-2 text-success small fw-bold"><i class="fas fa-arrow-up"></i> 12%</span>
               </div>
             </div>
-            <i class="fas fa-users position-absolute end-0 bottom-0 p-3 opacity-10 text-primary" style="font-size: 4rem;"></i>
+            <i class="fas fa-users position-absolute end-0 bottom-0 p-3 opacity-10 text-primary"
+              style="font-size: 4rem;"></i>
           </div>
         </div>
 
@@ -41,7 +42,8 @@
               <div class="text-secondary small fw-bold mb-1">TOTAL STAFF</div>
               <h2 class="fw-bold mb-0 text-dark">{{ (totalStaff$ | async) || 0 }}</h2>
             </div>
-            <i class="fas fa-user-shield position-absolute end-0 bottom-0 p-3 opacity-10 text-success" style="font-size: 4rem;"></i>
+            <i class="fas fa-user-shield position-absolute end-0 bottom-0 p-3 opacity-10 text-success"
+              style="font-size: 4rem;"></i>
           </div>
         </div>
 
@@ -54,7 +56,8 @@
                 <span class="ms-2 text-warning small fw-bold">Active</span>
               </div>
             </div>
-            <i class="fas fa-file-invoice position-absolute end-0 bottom-0 p-3 opacity-10 text-warning" style="font-size: 4rem;"></i>
+            <i class="fas fa-file-invoice position-absolute end-0 bottom-0 p-3 opacity-10 text-warning"
+              style="font-size: 4rem;"></i>
           </div>
         </div>
 
@@ -64,7 +67,8 @@
               <div class="text-secondary small fw-bold mb-1">ACTIVE PROGRAMS</div>
               <h2 class="fw-bold mb-0 text-dark">{{ (totalPrograms$ | async) || 0 }}</h2>
             </div>
-            <i class="fas fa-laptop-code position-absolute end-0 bottom-0 p-3 opacity-10 text-info" style="font-size: 4rem;"></i>
+            <i class="fas fa-laptop-code position-absolute end-0 bottom-0 p-3 opacity-10 text-info"
+              style="font-size: 4rem;"></i>
           </div>
         </div>
       </div>
@@ -72,13 +76,16 @@
       <div class="mt-5">
         <h5 class="fw-bold mb-3 text-dark">Quick Actions</h5>
         <div class="d-flex gap-3">
-            <button [routerLink]="['/admin/managed-intership']" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm transition-all hover-up">
-                <i class="fas fa-plus me-2"></i> New Program
-            </button>
-            <button class="btn btn-white border bg-white px-4 py-2 rounded-pill shadow-sm transition-all hover-up">
-                <i class="fas fa-download me-2 text-muted"></i> Export Reports
-            </button>
+          <button [routerLink]="['/admin/managed-intership']"
+            class="btn btn-primary px-4 py-2 rounded-pill shadow-sm transition-all hover-up">
+            <i class="fas fa-plus me-2"></i> New Program
+          </button>
+          <button class="btn btn-white border bg-white px-4 py-2 rounded-pill shadow-sm transition-all hover-up">
+            <i class="fas fa-download me-2 text-muted"></i> Export Reports
+          </button>
         </div>
       </div>
 
-    </div> </div> </div>
+    </div>
+  </div>
+</div>

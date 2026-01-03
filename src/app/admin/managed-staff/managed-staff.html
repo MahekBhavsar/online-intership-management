@@ -1,13 +1,10 @@
 <div class="container-fluid p-0 d-flex vh-100 overflow-hidden">
-  
   <app-admin-sidebar></app-admin-sidebar>
 
   <div class="flex-grow-1 bg-light overflow-auto d-flex flex-column">
-
     <app-admin-topnav></app-admin-topnav>
 
     <div class="p-4 p-lg-5">
-      
       <div class="row align-items-center mb-4">
         <div class="col">
           <h1 class="h3 fw-bold text-dark mb-1">Staff Management</h1>
@@ -19,10 +16,11 @@
         <div class="col-xl-4">
           <div class="card shadow-sm border-0 rounded-4">
             <div class="card-body p-4">
-              <h5 class="fw-bold mb-4 text-primary">Add New Staff</h5>
+              <h5 class="fw-bold mb-4 text-primary">
+                @if (editMode) { Update Staff } @else { Add New Staff }
+              </h5>
 
               <form [formGroup]="staffForm" (ngSubmit)="submit()">
-
                 <div class="mb-3">
                   <label class="form-label fw-semibold small">Staff ID</label>
                   <input class="form-control" formControlName="staffId" placeholder="e.g. STF001" />
@@ -30,10 +28,7 @@
 
                 <div class="mb-3">
                   <label class="form-label fw-semibold small">Password</label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0"><i class="fas fa-lock text-muted"></i></span>
-                    <input type="password" class="form-control border-start-0" formControlName="password" placeholder="••••••••" />
-                  </div>
+                  <input type="password" class="form-control" formControlName="password" placeholder="••••••••" />
                 </div>
 
                 <div class="mb-3">
@@ -46,10 +41,17 @@
                   <input type="email" class="form-control" formControlName="email" placeholder="staff@example.com" />
                 </div>
 
-                <button class="btn btn-primary w-100 py-2 fw-bold rounded-pill shadow-sm" type="submit" [disabled]="staffForm.invalid">
-                  <i class="fas fa-user-plus me-2"></i> Register Staff
+                <button class="btn btn-primary w-100 py-2 fw-bold rounded-pill shadow-sm" type="submit"
+                  [disabled]="staffForm.invalid">
+                  <i class="fas me-2" [class.fa-save]="editMode" [class.fa-user-plus]="!editMode"></i>
+                  @if (editMode) { Save Changes } @else { Register Staff }
                 </button>
 
+                @if (editMode) {
+                <button type="button" class="btn btn-link w-100 mt-2 text-secondary small" (click)="cancelEdit()">
+                  Cancel Edit
+                </button>
+                }
               </form>
             </div>
           </div>
@@ -72,35 +74,44 @@
                       <th class="ps-3 small fw-bold text-muted">STAFF ID</th>
                       <th class="small fw-bold text-muted">NAME</th>
                       <th class="small fw-bold text-muted">EMAIL</th>
-                      <th class="text-center small fw-bold text-muted">STATUS</th>
+                      <th class="text-end pe-3 small fw-bold text-muted">STATUS</th>
+                      <th class="text-end pe-3 small fw-bold text-muted"></th>
+                      
                     </tr>
                   </thead>
                   <tbody>
-                    @for (s of (staffList$ | async); track s.staffId) {
-                      <tr>
-                        <td class="ps-3 fw-bold text-primary">{{ s.staffId }}</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <div class="avatar-sm bg-secondary-subtle text-secondary rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
-                              <i class="fas fa-user-tie" style="font-size: 0.8rem;"></i>
-                            </div>
-                            <span class="text-dark fw-medium">{{ s.staffName }}</span>
+                    @for (s of (staffList$ | async); track $index) {
+                    <tr>
+                      <td class="ps-3 fw-bold text-primary">{{ s.staffId }}</td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div
+                            class="avatar-sm bg-secondary-subtle text-secondary rounded-circle me-2 d-flex align-items-center justify-content-center"
+                            style="width: 32px; height: 32px;">
+                            <i class="fas fa-user-tie" style="font-size: 0.8rem;"></i>
                           </div>
-                        </td>
-                        <td><span class="text-muted small">{{ s.email || '-' }}</span></td>
-                        <td class="text-center">
-                          <span class="badge bg-success-subtle text-success small">Verified</span>
-                        </td>
-                      </tr>
+                          <span class="text-dark fw-medium">{{ s.staffName }}</span>
+                        </div>
+                      </td>
+                      <td><span class="text-muted small">{{ s.email || '-' }}</span></td>
+                      <td class="text-center">
+                        <span class="badge bg-success-subtle text-success small">Verified</span>
+                      </td>
+                      <td class="text-end pe-3">
+                        <div class="btn-group">
+                          <button class="btn btn-sm btn-outline-primary border-0 me-1" (click)="editStaff(s)">
+                            <i class="fas fa-edit"></i> edit
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger border-0" (click)="deleteStaff(s)">
+                            <i class="fas fa-trash"></i> delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
                     } @empty {
-                      <tr>
-                        <td colspan="4" class="text-center py-5">
-                          <div class="text-muted opacity-50">
-                            <i class="fas fa-user-slash fs-1 d-block mb-3"></i>
-                            <p class="mb-0">No staff members found in database.</p>
-                          </div>
-                        </td>
-                      </tr>
+                    <tr>
+                      <td colspan="5" class="text-center py-5 text-muted">No staff found.</td>
+                    </tr>
                     }
                   </tbody>
                 </table>
@@ -108,4 +119,7 @@
             </div>
           </div>
         </div>
-      </div> </div> </div> </div>
+      </div>
+    </div>
+  </div>
+</div>

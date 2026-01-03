@@ -13,10 +13,11 @@ import { Navbar } from './users/navbar/navbar';
 import { Registration } from './users/registration/registration';
 import { PrivacyPolicy } from './users/privacy-policy/privacy-policy';
 import { TermsAndCondition } from './users/terms-and-condition/terms-and-condition';
+import { AdminLogin } from './admin/Adminlogin/admin-login';
 
 
 export const routes: Routes = [
-    { path: "dashboard", component: Dashboard },
+    { path: "users/dashboard", component: Dashboard },
 
     { path: "navbar", component: Navbar },
 
@@ -31,6 +32,8 @@ export const routes: Routes = [
     { path: 'users/registration', component: Registration },
 
     { path: 'users/login', component: Login },
+    
+    { path: 'admin/login', component: AdminLogin },
 
     { path: 'admin/dashboard', component: AdminDashboard },
 
@@ -41,8 +44,6 @@ export const routes: Routes = [
     { path: 'admin/managed-course', component: ManagedCourse },
 
     { path: 'admin/managed-staff', component: ManagedStaff },
-
-    { path: 'admin/staff-timetable', component: StaffTimetable },
 
     { path: 'admin/staff-timetable', component: StaffTimetable },
 
