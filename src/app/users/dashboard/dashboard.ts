@@ -3,6 +3,9 @@ import { FirebaseService } from '../../firebase-service/firebase-service';
 import { FirebaseCollections } from '../../firebase-service/firebase-enums';
 
 import { Observable } from 'rxjs';
+import { Footer } from '../footer/footer';
+import { Navbar } from '../navbar/navbar';
+import { Header } from '../header/header';
 
 interface Staff {
   id?: string;
@@ -14,6 +17,7 @@ interface Staff {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
+  imports:[Footer,Navbar,Header],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

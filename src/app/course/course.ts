@@ -42,7 +42,7 @@ export class course {
     }
   }
 
-  // 🔹 Submit new course
+
   async onSubmit() {
     if (this.courseForm.invalid) {
       this.courseForm.markAllAsTouched();
@@ -58,10 +58,10 @@ export class course {
       );
       console.log('Course added:', newCourse);
 
-      // Reload course list
+      
       await this.loadCourses();
 
-      // Reset form
+      
       this.courseForm.reset();
     } catch (error) {
       console.error('Error adding course:', error);
