@@ -10,12 +10,15 @@ import { Footer } from './users/footer/footer';
 import { Header } from './users/header/header';
 import { Navbar } from './users/navbar/navbar';
 import { Registration } from './users/registration/registration';
+import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
+import { Registration } from './users/registration/registration';
 
 export const routes: Routes = [
     { path: "dashboard", component: Dashboard },
     { path: "navbar", component: Navbar },
     { path: "header", component: Header },
     { path: "footer", component: Footer },
+    {path:"registration",component:Registration},
     {
         path: 'admin/dashboard',
         component: AdminDashboard
