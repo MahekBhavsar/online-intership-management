@@ -25,9 +25,15 @@ import { RegistrationUserData } from '../Interfaces/application';
   providedIn: 'root',
 })
 export class FirebaseService {
-  addApplication(formData: RegistrationUserData) {
-    throw new Error('Method not implemented.');
-  }
+ public addApplication(formData: RegistrationUserData) {
+  return this.addDocument(FirebaseCollections.Application, {
+    ...formData,
+    status: 'pending',        // new application starts as pending
+    assignedStaffId: null,    // staff not assigned yet
+    createdAt: new Date(),    // optional: track when submitted
+  });
+}
+
   constructor(private readonly firestore: Firestore) {}
 
   public getCollection<T extends DocumentData>(
