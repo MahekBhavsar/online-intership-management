@@ -5,11 +5,13 @@ import { Observable, firstValueFrom } from 'rxjs';
 
 import { FirebaseService } from '../../firebase-service/firebase-service';
 import { FirebaseCollections } from '../../firebase-service/firebase-enums';
+import { AdminNavbar } from '../admin-topnav/admin-topnav';
+import { AdminSidebar } from '../admin-sidebar/admin-sidebar';
 
 @Component({
   selector: 'app-managed-intership-program',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,AdminNavbar,AdminSidebar],
   templateUrl: './managed-intership-program.html',
 })
 export class ManagedPIntershiprogram implements OnInit {

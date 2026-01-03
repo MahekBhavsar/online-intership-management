@@ -4,11 +4,19 @@ import { Observable, map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { FirebaseService } from '../../firebase-service/firebase-service';
 import { FirebaseCollections } from '../../firebase-service/firebase-enums';
+import { AdminNavbar } from '../admin-topnav/admin-topnav';
+import { AdminSidebar } from '../admin-sidebar/admin-sidebar';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  // Add CommonModule and RouterModule so your @if/async and links work
+  imports: [
+    CommonModule, 
+    RouterModule, 
+    AdminNavbar, 
+    AdminSidebar
+  ], 
   templateUrl: './admin-dashboard.html',
 })
 export class AdminDashboard implements OnInit {

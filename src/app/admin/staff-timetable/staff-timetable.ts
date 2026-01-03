@@ -5,11 +5,13 @@ import { FirebaseService } from '../../firebase-service/firebase-service';
 import { FirebaseCollections } from '../../firebase-service/firebase-enums';
 import { StaffTimetableEntry } from '../../Interfaces/staff-timetable';
 import { firstValueFrom } from 'rxjs';
+import { AdminNavbar } from '../admin-topnav/admin-topnav';
+import { AdminSidebar } from '../admin-sidebar/admin-sidebar';
 
 @Component({
   selector: 'app-staff-timetable',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,AdminNavbar,AdminSidebar],
   templateUrl: './staff-timetable.html',
   styleUrls: ['./staff-timetable.css'],
 })
