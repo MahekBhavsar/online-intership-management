@@ -8,6 +8,11 @@ import { ManagedPIntershiprogram } from './admin/managed-intership-program/manag
 import { ManagedCourse } from './admin/managed-course/managed-course';
 import { ManagedStaff } from './admin/managed-staff/managed-staff';
 import { course } from './course/course';
+import { Registration } from './users/registration/registration';
+import { StaffTimetable } from './admin/staff-timetable/staff-timetable';
+import { ManageApplication } from './admin/manage-application/manage-application';
+import { Login } from './users/login/login';
+import { AdminLogin } from './admin/Adminlogin/admin-login';
 
 export const routes: Routes = [
     { path: "dashboard", component: Dashboard },
@@ -18,7 +23,11 @@ export const routes: Routes = [
         path: 'admin/dashboard',
         component: AdminDashboard
     },
-    
+
+    {
+        path: 'admin/manage-application',
+        component: ManageApplication
+    },
     {
         path: 'admin/managed-intership',
         component: ManagedPIntershiprogram
@@ -31,7 +40,15 @@ export const routes: Routes = [
         path: 'admin/managed-staff',
         component: ManagedStaff
     },
-  
+    {
+        path: 'users/registration', component: Registration
+    },
+    {
+
+
+        path: 'admin/staff-timetable',
+        component: StaffTimetable
+    },
 
     {
         path:'course', component:course
